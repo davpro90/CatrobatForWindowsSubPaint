@@ -14,9 +14,10 @@
 
     <Grid
         x:Name="GridMainSelection"
-        Width="290"
         Height="290"
         Margin="0,0,0,0"
+        RenderTransformOrigin="0.5,0.5"
+        Width="290"
         >
 
         <Grid

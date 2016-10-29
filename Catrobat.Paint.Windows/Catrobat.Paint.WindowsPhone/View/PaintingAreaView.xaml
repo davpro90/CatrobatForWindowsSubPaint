@@ -102,17 +102,14 @@
         <Rectangle x:Name="rectTest"
             Fill="#FFF4F4F5"
             HorizontalAlignment="Center"
-            Height="60.604" Stroke="Black"
+            Height="47.443" Stroke="Black"
             VerticalAlignment="Center"
-            Width="58.745"
-            Visibility="Visible" RenderTransformOrigin="0.5,0.5"
-             UseLayoutRounding="False" d:LayoutRounding="Auto" 
-             Margin="206.438,388.637,134.817,130.759">
+            Width="37.817"
+            Visibility="Visible" RenderTransformOrigin="0.5,0.5" 
+             Margin="298.34,497.05,63.843,35.507" UseLayoutRounding="False" d:LayoutRounding="Auto">
             <Rectangle.RenderTransform>
-                <CompositeTransform Rotation="-47.318"/>
+                <CompositeTransform Rotation="-165.62"/>
             </Rectangle.RenderTransform>
-
-
         </Rectangle>
 
 

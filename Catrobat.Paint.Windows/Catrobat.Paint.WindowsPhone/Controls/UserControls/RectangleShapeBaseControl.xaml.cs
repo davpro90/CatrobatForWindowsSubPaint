@@ -44,8 +44,8 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
 
             m_CenterPointRotation = new Point
             {
-                X = GridMainSelection.Width / 2,
-                Y = GridMainSelection.Height / 2
+                X = 0.0,
+                Y = 0.0
             };
 
             IsModifiedRectangleForMovement = false;
@@ -482,8 +482,8 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
             m_TransformGridMain.Children.Clear();
             m_RotationAngle = 0;
 
-            m_CenterPointRotation.X = GridMainSelection.Width / 2;
-            m_CenterPointRotation.Y = GridMainSelection.Height / 2;
+            m_CenterPointRotation.X = 0.0;
+            m_CenterPointRotation.Y = 0.0;
 
             m_CornerPoint.X = 0.0;
             m_CornerPoint.Y = 0.0;
