@@ -48,6 +48,9 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
                 Y = 0.0
             };
 
+            double halfWidthGridMainSelection = GridMainSelection.Width / 2.0;
+            double halfHeightGridMainSelection = GridMainSelection.Height / 2.0;
+            GridMainSelection.Margin = new Thickness(halfWidthGridMainSelection, halfHeightGridMainSelection, halfWidthGridMainSelection, halfHeightGridMainSelection);
             IsModifiedRectangleForMovement = false;
         }
 
@@ -125,16 +128,10 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
             m_CenterPointRotation.X += xVal;
             m_CenterPointRotation.Y += yVal;
 
-            var lastTranslateTransform = GetLastTranslateTransformation();
-            if (lastTranslateTransform != null)
-            {
-                xVal += lastTranslateTransform.X;
-                yVal += lastTranslateTransform.Y;
-            }
-
-            translateTransform.X = xVal;
-            translateTransform.Y = yVal;
-            addTransformation(translateTransform);
+            GridMainSelection.Margin = new Thickness(GridMainSelection.Margin.Left + xVal,
+                                                     GridMainSelection.Margin.Top + yVal,
+                                                     GridMainSelection.Margin.Right - xVal,
+                                                     GridMainSelection.Margin.Bottom - yVal);
         }
 
         private void rectEllipseForMovement_Tapped(object sender, TappedRoutedEventArgs e)
