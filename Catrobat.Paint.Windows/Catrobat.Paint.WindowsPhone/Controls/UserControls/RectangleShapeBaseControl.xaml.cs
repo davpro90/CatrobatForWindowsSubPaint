@@ -107,26 +107,8 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
 
         private void rectEllipseForMovement_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
         {
-            var translateTransform = new TranslateTransform();
-
-            // TODO: Fix bug of translation when rotated in certain positions. remove then the comments
-            //RotateTransform lastRotateTransform = GetLastRotateTransformation();
-
-            //var deltaX = e.Delta.Translation.X;
-            //var deltaY = e.Delta.Translation.Y;
-            //var rotationRadian = PocketPaintApplication.DegreeToRadian(m_RotationAngle);
-            //var deltaXCorrected = Math.Cos(-rotationRadian) * (deltaX)
-            //        - Math.Sin(-rotationRadian) * (deltaY);
-            //var deltaYCorrected = Math.Sin(-rotationRadian) * (deltaX)
-            //        + Math.Cos(-rotationRadian) * (deltaY);
-            //var xVal = deltaXCorrected;
-            //var yVal = deltaYCorrected;
-
             var xVal = e.Delta.Translation.X;
             var yVal = e.Delta.Translation.Y;
-
-            m_CenterPointRotation.X += xVal;
-            m_CenterPointRotation.Y += yVal;
 
             GridMainSelection.Margin = new Thickness(GridMainSelection.Margin.Left + xVal,
                                                      GridMainSelection.Margin.Top + yVal,
@@ -570,8 +552,8 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
             var rt = new RotateTransform
             {
                 Angle = m_RotationAngle,
-                CenterX = m_CenterPointRotation.X,
-                CenterY = m_CenterPointRotation.Y
+                CenterX = 0.0,
+                CenterY = 0.0
             };
             addTransformation(rt);
         }
