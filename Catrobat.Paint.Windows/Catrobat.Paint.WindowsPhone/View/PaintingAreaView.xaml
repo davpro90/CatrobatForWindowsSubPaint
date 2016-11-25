@@ -104,14 +104,6 @@
 
         <!-- Loading-->
         <ProgressRing x:Name="progressRing" BorderBrush="LightGray" BorderThickness="3" Height="80" IsActive="False" Width="80"/>
-        <Rectangle x:Name="rectTest"
-            Fill="#FFF4F4F5"
-            HorizontalAlignment="Left"
-            Height="60" Stroke="Black"
-            VerticalAlignment="Top"
-            Width="61"
-            Visibility="Visible" RenderTransformOrigin="0.5,0.5" 
-             Margin="12,96,0,0"/>
 
 
     </Grid>
