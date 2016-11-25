@@ -54,8 +54,13 @@
             </Grid>
             <!-- RectangleSelectioncontrol -->
 
-            <userControls:RectangleSelectionControl x:Name="ucRectangleSelectionControl" HorizontalAlignment="Center"
-                                                   VerticalAlignment="Center" Visibility="Collapsed" RenderTransformOrigin="0,0"></userControls:RectangleSelectionControl>
+            <userControls:RectangleSelectionControl
+                x:Name="ucRectangleSelectionControl"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Visibility="Collapsed"
+                RenderTransformOrigin="0,0">
+            </userControls:RectangleSelectionControl>
         </Grid>
 
         <!-- app-BarRectEllControl -->
@@ -101,16 +106,12 @@
         <ProgressRing x:Name="progressRing" BorderBrush="LightGray" BorderThickness="3" Height="80" IsActive="False" Width="80"/>
         <Rectangle x:Name="rectTest"
             Fill="#FFF4F4F5"
-            HorizontalAlignment="Center"
-            Height="47.443" Stroke="Black"
-            VerticalAlignment="Center"
-            Width="37.817"
+            HorizontalAlignment="Left"
+            Height="60" Stroke="Black"
+            VerticalAlignment="Top"
+            Width="61"
             Visibility="Visible" RenderTransformOrigin="0.5,0.5" 
-             Margin="298.34,497.05,63.843,35.507" UseLayoutRounding="False" d:LayoutRounding="Auto">
-            <Rectangle.RenderTransform>
-                <CompositeTransform Rotation="-165.62"/>
-            </Rectangle.RenderTransform>
-        </Rectangle>
+             Margin="12,96,0,0"/>
 
 
     </Grid>

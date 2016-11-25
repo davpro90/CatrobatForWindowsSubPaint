@@ -15,11 +15,13 @@
     <Grid
         x:Name="GridMainSelection"
         Height="290"
+        HorizontalAlignment="Left"
         Margin="0,0,0,0"
-        RenderTransformOrigin="0.5,0.5"
+        RenderTransformOrigin="1,1"
+        VerticalAlignment="Top"
         Width="290"
         >
-
+        <Ellipse Fill="Red" HorizontalAlignment="Center" Height="5" Stroke="LightSkyBlue" StrokeThickness="0" VerticalAlignment="Center" Width="5"/>
         <Grid
             x:Name="AreaToDrawGrid"
             Width="160"
@@ -44,6 +46,8 @@
                 Visibility="Collapsed"
                 />
 
+
+
             <Ellipse
                 x:Name="AreaToDrawEllipse"
                 Width="{Binding ElementName=AreaToDrawGrid,
@@ -58,7 +62,6 @@
                 StrokeThickness="3"
                 Visibility="Collapsed"
                 />
-
         </Grid>
 
         <Rectangle
@@ -270,7 +273,7 @@
             ManipulationDelta="RotationBottomLeft_OnManipulationDelta"
             ManipulationMode="TranslateX, TranslateY"
             >
-            
+
             <userControls:RotationArrowsShape
             x:Name="rotationArrowBottomLeft"
             Margin="45,0,0,-30.833"
@@ -279,11 +282,11 @@
             d:LayoutRounding="Auto"
             UseLayoutRounding="False"
             >
-            <userControls:RotationArrowsShape.RenderTransform>
-                <CompositeTransform
+                <userControls:RotationArrowsShape.RenderTransform>
+                    <CompositeTransform
                     Rotation="-90"
                     />
-            </userControls:RotationArrowsShape.RenderTransform>
+                </userControls:RotationArrowsShape.RenderTransform>
             </userControls:RotationArrowsShape>
         </Grid>
 
@@ -297,7 +300,7 @@
             ManipulationDelta="RotationBottomRight_OnManipulationDelta"
             ManipulationMode="TranslateX, TranslateY"
             />
-        
+
         <Grid
             x:Name="BottomRightRotationGrid"
             Width="120"
@@ -454,6 +457,6 @@
             </userControls:RotationArrowsShape>
         </Grid>
 
-        
+
     </Grid>
 </UserControl>
