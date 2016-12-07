@@ -82,26 +82,26 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
         public void TodoNeuerName(double center_x, double center_y, Point transformOrigin)
         {
             m_currentGridMainMargin = GridMainSelection.Margin;
-            CompositeTransform compositeTransform = GridMainSelection.RenderTransform as CompositeTransform;
-            double height = GridMainSelection.Height;
-            double width = GridMainSelection.Width;
+            double currentGridMainHeight = GridMainSelection.Height;
+            double currentGridMainWidth = GridMainSelection.Width;
        
             ResetRectangleShapeBaseControl();
 
-            GridMainSelection.Height = height;
+            GridMainSelection.Height = currentGridMainHeight;
             GridMainSelection.Margin = m_currentGridMainMargin;
             GridMainSelection.RenderTransformOrigin = transformOrigin;
-            GridMainSelection.Width = width;
+            GridMainSelection.Width = currentGridMainWidth;
 
-            MovementRectangle.Height = height - 90;
-            MovementRectangle.Width = width - 90;
+            MovementRectangle.Height = currentGridMainHeight - 90;
+            MovementRectangle.Width = currentGridMainWidth - 90;
 
-            AreaToDrawGrid.Height = height - 130;
-            AreaToDrawGrid.Width = width - 130;
+            AreaToDrawGrid.Height = currentGridMainHeight - 130;
+            AreaToDrawGrid.Width = currentGridMainWidth - 130;
 
-            var ct = new CompositeTransform
+            RotateTransform rotateTransform = GridMainSelection.RenderTransform as RotateTransform;
+            var ct = new RotateTransform
             {
-                Rotation = m_currentRotationAngle,
+                Angle = m_currentRotationAngle,
                 CenterX = m_center_x,
                 CenterY = m_center_y
             };
@@ -241,40 +241,43 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
             Debug.Assert(AreaToDraw.Children.Count == 1);
             UIElement elementToDraw = AreaToDraw.Children[0];
 
-            var coord = e.GetPosition(PocketPaintApplication.GetInstance().GridWorkingSpace);
-            //var coord2 = e.GetPosition(elementToDraw);
-            var coord2 = e.GetPosition(AreaToDraw);
+            Grid grid = GridMainSelection;
+            var centerCoordinateOfGridMain = GetCenterCoordinateOfGridMain();
+
+            Point leftTopPoint = new Point();
+            leftTopPoint.X = centerCoordinateOfGridMain.X - AreaToDraw.Width / 2.0;
+            leftTopPoint.Y = centerCoordinateOfGridMain.Y - AreaToDraw.Height / 2.0;
 
             var angle = PocketPaintApplication.GetInstance().angularDegreeOfWorkingSpaceRotation;
 
-            switch (angle)
-            {
-                case 0:
-                    coord.X -= coord2.X;
-                    coord.Y -= coord2.Y;
-                    coord.X += (AreaToDraw.Width / 2);
-                    coord.Y += (AreaToDraw.Height / 2);
-                    break;
-                case 90:
-                    coord.X -= coord2.Y;
-                    coord.Y -= (AreaToDraw.Width - coord2.X);
-                    coord.X += (AreaToDraw.Width / 2);
-                    coord.Y += (AreaToDraw.Height / 2);
-                    break;
-                case 180:
-                    coord.X += coord2.X;
-                    coord.Y += coord2.Y;
-                    coord.X -= (AreaToDraw.Width / 2);
-                    coord.Y -= (AreaToDraw.Height / 2);
-                    break;
-                case 270:
-                    coord.X -= (AreaToDraw.Height - coord2.Y);
-                    coord.Y -= coord2.X;
-                    coord.X += (AreaToDraw.Width / 2);
-                    coord.Y += (AreaToDraw.Height / 2);
-                    break;
-            }
-            PocketPaintApplication.GetInstance().ToolCurrent.Draw(coord);
+            //switch (angle)
+            //{
+            //    case 0:
+            //        coord.X -= coord2.X;
+            //        coord.Y -= coord2.Y;
+            //        coord.X += (AreaToDraw.Width / 2);
+            //        coord.Y += (AreaToDraw.Height / 2);
+            //        break;
+            //    case 90:
+            //        coord.X -= coord2.Y;
+            //        coord.Y -= (AreaToDraw.Width - coord2.X);
+            //        coord.X += (AreaToDraw.Width / 2);
+            //        coord.Y += (AreaToDraw.Height / 2);
+            //        break;
+            //    case 180:
+            //        coord.X += coord2.X;
+            //        coord.Y += coord2.Y;
+            //        coord.X -= (AreaToDraw.Width / 2);
+            //        coord.Y -= (AreaToDraw.Height / 2);
+            //        break;
+            //    case 270:
+            //        coord.X -= (AreaToDraw.Height - coord2.Y);
+            //        coord.Y -= coord2.X;
+            //        coord.X += (AreaToDraw.Width / 2);
+            //        coord.Y += (AreaToDraw.Height / 2);
+            //        break;
+            //}
+            PocketPaintApplication.GetInstance().ToolCurrent.Draw(leftTopPoint);
         }
 
         private void resizeWidth(double deltaX, double deltaY, Orientation orientation)
@@ -639,9 +642,9 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
                 m_RotationAngle = m_RotationAngle - 360;
             }
 
-            var ct = new CompositeTransform
+            var ct = new RotateTransform
             {
-                Rotation = m_RotationAngle,
+                Angle = m_RotationAngle,
                 CenterX = m_center_x,
                 CenterY = m_center_y
             };

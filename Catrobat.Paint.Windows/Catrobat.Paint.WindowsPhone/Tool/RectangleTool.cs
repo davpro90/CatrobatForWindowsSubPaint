@@ -4,6 +4,7 @@ using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Shapes;
+using Catrobat.Paint.WindowsPhone.Controls.UserControls;
 
 namespace Catrobat.Paint.WindowsPhone.Tool
 {
@@ -22,39 +23,31 @@ namespace Catrobat.Paint.WindowsPhone.Tool
         {
             var strokeThickness = PocketPaintApplication.GetInstance().PaintData.strokeThickness;
 
-            Rectangle rectangleToDraw = PocketPaintApplication.GetInstance().RectangleSelectionControl.RectangleToDraw;
+            RectangleSelectionControl currentRectangleSelectionControl = PocketPaintApplication.GetInstance().RectangleSelectionControl;
+            Rectangle rectangleToDraw = currentRectangleSelectionControl.RectangleToDraw;
 
             var coordinate = (Point)o;
-            //coordinate.X += strokeThickness / 2.0;
-            //coordinate.Y += strokeThickness / 2.0;
-            //coordinate.X -= (ellipseToDraw.Width / 2.0);
-            //coordinate.Y -= (ellipseToDraw.Height / 2.0);
 
-            double width = rectangleToDraw.Width;
-            double height = rectangleToDraw.Height;
-            width -= strokeThickness;
-            height -= strokeThickness;
-
-            Rect rect = new Rect();
+            double widthOfRectangleToDraw = rectangleToDraw.Width - strokeThickness;
+            double heightOfRectangleToDraw = rectangleToDraw.Height - strokeThickness;
 
             var angle = PocketPaintApplication.GetInstance().angularDegreeOfWorkingSpaceRotation;
-
+            Rect rect = new Rect();
+            rect.X = coordinate.X + strokeThickness / 2;
+            rect.Y = coordinate.Y + strokeThickness / 2;
             switch (angle)
             {
                 case 0:
                 case 180:
-                    rect.Width = width;
-                    rect.Height = height;
+                    rect.Width = widthOfRectangleToDraw;
+                    rect.Height = heightOfRectangleToDraw;
                     break;
                 case 90:
                 case 270:
-                    rect.Width = height;
-                    rect.Height = width;
+                    rect.Width = heightOfRectangleToDraw;
+                    rect.Height = widthOfRectangleToDraw;
                     break;
             }
-
-            rect.X = coordinate.X - width / 2.0;
-            rect.Y = coordinate.Y - height / 2.0;
 
             RectangleGeometry myRectGeometry = new RectangleGeometry();
             myRectGeometry.Rect = rect;
@@ -63,8 +56,8 @@ namespace Catrobat.Paint.WindowsPhone.Tool
             if (lastRotateTransform != null)
             {
                 RotateTransform rotateTransform = new RotateTransform();
-                rotateTransform.CenterX = coordinate.X;
-                rotateTransform.CenterY = coordinate.Y;
+                rotateTransform.CenterX = currentRectangleSelectionControl.GetControlCenterPoint().X;
+                rotateTransform.CenterY = currentRectangleSelectionControl.GetControlCenterPoint().Y;
                 rotateTransform.Angle = lastRotateTransform.Angle;
 
                 myRectGeometry.Transform = rotateTransform;
@@ -74,7 +67,7 @@ namespace Catrobat.Paint.WindowsPhone.Tool
             {
                 Fill = PocketPaintApplication.GetInstance().PaintData.colorSelected,
                 Stroke = PocketPaintApplication.GetInstance().PaintData.strokeColorSelected,
-                StrokeThickness = strokeThickness,
+                StrokeThickness = strokeThickness ,
                 StrokeLineJoin =
                     PocketPaintApplication.GetInstance().RectangleSelectionControl.StrokeLineJoinOfRectangleToDraw,
                 Data = myRectGeometry

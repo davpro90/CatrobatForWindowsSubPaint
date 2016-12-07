@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Shapes;
@@ -57,6 +58,11 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
             }
             
             Debug.Assert(RectangleToDraw != null);
+        }
+
+        public Point GetControlCenterPoint()
+        {
+            return RectangleShapeBase.GetCenterCoordinateOfGridMain();
         }
 
         public void ResetRectangleSelectionControl()

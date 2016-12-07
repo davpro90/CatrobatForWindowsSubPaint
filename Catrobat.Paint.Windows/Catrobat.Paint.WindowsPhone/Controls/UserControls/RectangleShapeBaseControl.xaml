@@ -21,7 +21,7 @@
         VerticalAlignment="Top"
         Width="290"
         >
-        <Ellipse Fill="Red" HorizontalAlignment="Center" Height="5" Stroke="LightSkyBlue" StrokeThickness="0" VerticalAlignment="Center" Width="5"/>
+
         <Grid
             x:Name="AreaToDrawGrid"
             Width="160"
@@ -45,8 +45,6 @@
                 StrokeThickness="3"
                 Visibility="Collapsed"
                 />
-
-
 
             <Ellipse
                 x:Name="AreaToDrawEllipse"

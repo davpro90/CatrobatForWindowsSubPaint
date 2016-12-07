@@ -1696,6 +1696,19 @@ namespace Catrobat.Paint.WindowsPhone.View
             }
         }
 
+        public void addElementToPaintingAreCanvas(Rectangle rectangle)
+        {
+            if (rectangle != null)
+            {
+                Rectangle rectangleToDraw = rectangle;
+                rectangle.Height = rectangle.Height;
+                rectangle.Width = rectangle.Width;
+                PaintingAreaCanvas.Children.Add(rectangle);
+                changeEnabledOfASecondaryAppbarButton("appBarButtonClearWorkingSpace", true);
+                changeEnabledOfASecondaryAppbarButton("appbarButtonSave", true);
+            }
+        }
+
         public void addElementToEraserCanvas(Path path)
         {
             if (path != null)
