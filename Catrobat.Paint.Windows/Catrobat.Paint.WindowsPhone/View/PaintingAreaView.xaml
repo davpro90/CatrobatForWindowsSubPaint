@@ -17,7 +17,9 @@
                     <ImageBrush ImageSource="/Assets/checkeredbgWXGA.png" Stretch="None" />
                 </Grid.Background>-->
 
-                <Canvas x:Name="CheckeredCanvas"></Canvas>
+                <Canvas x:Name="CheckeredCanvas">
+
+                </Canvas>
 
                 <Canvas x:Name="PaintingAreaCanvas"
                         Background="#5FD7CCCC" 
@@ -53,7 +55,6 @@
                 <userControls:EllipseSelectionControl x:Name="ucEllipseSelectionControl" Visibility="Collapsed"></userControls:EllipseSelectionControl>
             </Grid>
             <!-- RectangleSelectioncontrol -->
-
             <userControls:RectangleSelectionControl
                 x:Name="ucRectangleSelectionControl"
                 HorizontalAlignment="Center"

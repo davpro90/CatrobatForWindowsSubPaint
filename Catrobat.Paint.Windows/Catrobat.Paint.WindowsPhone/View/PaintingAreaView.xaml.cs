@@ -33,7 +33,6 @@ namespace Catrobat.Paint.WindowsPhone.View
     /// </summary>
     public sealed partial class PaintingAreaView : Page
     {
-        static string current_appbar = "barStandard";
         static int rotateCounter;
         static bool flipVertical;
         static bool flipHorizontal;
@@ -43,6 +42,22 @@ namespace Catrobat.Paint.WindowsPhone.View
         static int zoomCounter;
         static bool m_isWorkingSpaceMoved;
         CoreApplicationView view;
+
+        private const string barCursorText = "barCursor";
+        private const string barBrushEraserLineText = "barBrushEraserLine";
+        private const string barCropText = "barCrop";
+        private const string barFillText = "barFill";
+        private const string barPipetteText = "barPipette";
+        private const string barImportPngText = "barImportPng";
+        private const string barEllipseText = "barEllipse";
+        private const string barRectangleText = "barRectangle";
+        private const string barMoveText = "barMove";
+        private const string barZoomText = "barZoom";
+        private const string barRotateText = "barRotate";
+        private const string barFlipText = "barFlip";
+        private const string barStampText = "barStamp";
+
+        static string current_appbar = barBrushEraserLineText;
 
         public PaintingAreaView()
         {
@@ -488,6 +503,15 @@ namespace Catrobat.Paint.WindowsPhone.View
             return bitmapIcon;
         }
 
+        private AppBarButton appBarButtonWith(string iconText, string labelText, string nameText)
+        {
+            AppBarButton appBarButton = new AppBarButton();
+            appBarButton.Icon = bitmapIconFrom(iconText);
+            appBarButton.Label = labelText;
+            appBarButton.Name = nameText;
+            return appBarButton;
+        }
+
         public void createAppBarAndSwitchAppBarContent(string type)
         {
             CommandBar cmdBar = new CommandBar();
@@ -499,22 +523,15 @@ namespace Catrobat.Paint.WindowsPhone.View
             unloadTapEvent();
             unloadManipulationPaintingAreaCanvasEvents();
 
-            if ("barCursor" == type || "barStandard" == type)
+            if (type == barCursorText || type == barBrushEraserLineText)
             {
-                AppBarButton app_btnBrushThickness = new AppBarButton();
-                app_btnBrushThickness.Icon = bitmapIconFrom("icon_menu_strokes.png");
-                app_btnBrushThickness.Label = "Pinselstärke";
-                app_btnBrushThickness.Name = "ThicknessButton";
+                AppBarButton app_btnBrushThickness = appBarButtonWith("icon_menu_strokes.png", "Pinselstärke", "ThicknessButton");
                 app_btnBrushThickness.Click += btnThickness_Click;
                 cmdBar.PrimaryCommands.Add(app_btnBrushThickness);
 
-                if ("barCursor" == type)
+                if (type == barCursorText)
                 {
-                    AppBarButton app_btnResetCursor = new AppBarButton();
-                    app_btnResetCursor.Name = "appButtonResetCursor";
-                    app_btnResetCursor.Label = "Cursor-Startposition";
-
-                    app_btnResetCursor.Icon = bitmapIconFrom("icon_menu_cursor.png");
+                    AppBarButton app_btnResetCursor = appBarButtonWith("icon_menu_cursor.png", "Cursor-Startposition", "appButtonResetCursor");
 
                     TransformGroup transformGroup = (TransformGroup)GridCursor.RenderTransform;
                     if (transformGroup.Value.OffsetX != 0.0 || transformGroup.Value.OffsetY != 0.0)
@@ -533,277 +550,122 @@ namespace Catrobat.Paint.WindowsPhone.View
                     unloadPointerEvents();
                 }
             }
-            else if ("barCrop" == type)
+            else if (type == barCropText)
             {
-                AppBarButton app_btnCropImage = new AppBarButton();
-                AppBarButton app_btnResetSelection = new AppBarButton();
-                app_btnResetSelection.Name = "appButtonResetCrop";
-
-                app_btnCropImage.Icon = bitmapIconFrom("icon_menu_crop_cut.png");
-                app_btnResetSelection.Icon = bitmapIconFrom("icon_menu_crop_adjust.png");
-
-                app_btnCropImage.Label = "schneiden";
-                app_btnResetSelection.Label = "Ausgangsposition";
-
-                app_btnResetSelection.Click += app_btn_reset_Click;
+                AppBarButton app_btnCropImage = appBarButtonWith("icon_menu_crop_cut.png", "Schneiden", "");
                 app_btnCropImage.Click += app_btnCropImage_Click;
-
-                app_btnResetSelection.IsEnabled = PocketPaintApplication.GetInstance().CropControl.SetIsModifiedRectangleMovement ? true : false;
-
-                cmdBar.PrimaryCommands.Add(app_btnResetSelection);
                 cmdBar.PrimaryCommands.Add(app_btnCropImage);
+
+                AppBarButton app_btnResetSelection = appBarButtonWith("icon_menu_crop_adjust.png", "Ausgangsposition", "appButtonResetCrop");
+                app_btnResetSelection.Click += app_btn_reset_Click;
+                app_btnResetSelection.IsEnabled = PocketPaintApplication.GetInstance().CropControl.SetIsModifiedRectangleMovement ? true : false;
+                cmdBar.PrimaryCommands.Add(app_btnResetSelection);
             }
-            else if ("barImportPng" == type)
+            else if (type == barFillText || type == barPipetteText)
+            {
+                // Do nothing
+            }
+            else if (type == barImportPngText || type == barEllipseText || type == barRectangleText)
             {
                 AppBarButton app_btnBrushThickness = new AppBarButton();
-                AppBarButton app_btnImportPicture = new AppBarButton();
-                AppBarButton app_btnReset = new AppBarButton();
-
-                app_btnReset.Name = "appButtonReset";
-
-                app_btnBrushThickness.Icon = bitmapIconFrom("icon_menu_strokes.png");
-                app_btnReset.Icon = bitmapIconFrom("icon_menu_cursor.png");
-                app_btnImportPicture.Icon = bitmapIconFrom("icon_menu_cursor.png");
-
-                app_btnBrushThickness.Label = "Einstellungen";
-                app_btnImportPicture.Label = "Bild laden";
-                app_btnReset.Label = "Ausgangsposition";
-
-                app_btnBrushThickness.Name = "ThicknessProperties";
-                //TODO: David app_btnReset.IsEnabled = PocketPaintApplication.GetInstance().RectangleSelectionControl.isModifiedRectangleMovement ? true : false;
-
                 app_btnBrushThickness.Click += btnThicknessBorder_Click;
-                app_btnImportPicture.Click += app_btnImportPicture_Click;
-                app_btnReset.Click += app_btn_reset_Click;
-
-                cmdBar.PrimaryCommands.Add(app_btnReset);
-                cmdBar.PrimaryCommands.Add(app_btnImportPicture);
-                cmdBar.PrimaryCommands.Add(app_btnBrushThickness);
-
-                loadManipulationPaintingAreaCanvasEvents();
-                unloadPointerEvents();
-            }
-            else if ("barPipette" == type)
-            {
-                //TODO: Empty?
-            }
-            else if ("barFill" == type)
-            {
-                // TODO:
-                /*AppBarButton app_btnColor = new AppBarButton();
-
-                app_btnColor.Icon = bitmapIconFrom("icon_menu_color_palette.png");
-
-                app_btnColor.Label = "Farbe";
-
-                app_btnColor.Click += PocketPaintApplication.GetInstance().ApplicationBarListener.BtnColor_Click;
-
-                cmdBar.PrimaryCommands.Add(app_btnColor);*/
-            }
-
-            else if ("barEllipse" == type)
-            {
-                AppBarButton app_btnBrushThickness = new AppBarButton();
-                AppBarButton app_btnReset = new AppBarButton();
-
-                app_btnReset.Name = "appButtonReset";
-
                 app_btnBrushThickness.Icon = bitmapIconFrom("icon_menu_strokes.png");
-                app_btnReset.Icon = bitmapIconFrom("icon_menu_cursor.png");
-
                 app_btnBrushThickness.Label = "Einstellungen";
-
-                app_btnReset.Label = "Ausgangsposition";
-                Debug.Assert(
-                            ((RectangleShapeBaseTool)PocketPaintApplication.GetInstance().ToolCurrent)
-                            .RectangleShapeBase != null);
-                app_btnReset.IsEnabled = ((RectangleShapeBaseTool)PocketPaintApplication.GetInstance().ToolCurrent)
-                                         .RectangleShapeBase.IsModifiedRectangleForMovement;
-
                 app_btnBrushThickness.Name = "ThicknessProperties";
-
-                app_btnBrushThickness.Click += btnThicknessBorder_Click;
-                app_btnReset.Click += app_btn_reset_Click;
-
-                cmdBar.PrimaryCommands.Add(app_btnReset);
                 cmdBar.PrimaryCommands.Add(app_btnBrushThickness);
 
-                AppBarButton app_btnColor = new AppBarButton();
-                app_btnColor.Icon = bitmapIconFrom("icon_menu_color_palette.png");
-                app_btnColor.Label = "Farbe";
-                app_btnColor.Click += PocketPaintApplication.GetInstance().ApplicationBarListener.BtnColor_Click;
-                cmdBar.PrimaryCommands.Add(app_btnColor);
-
-                loadManipulationPaintingAreaCanvasEvents();
-                unloadPointerEvents();
-            }
-            else if ("barEraser" == type)
-            {
-                AppBarButton app_btnBrushThickness = new AppBarButton();
-
-                app_btnBrushThickness.Icon = bitmapIconFrom("icon_menu_strokes.png");
-                app_btnBrushThickness.Label = "Pinselstärke";
-                app_btnBrushThickness.Name = "ThicknessButton";
-                app_btnBrushThickness.Click += btnThickness_Click;
-
-                cmdBar.PrimaryCommands.Add(app_btnBrushThickness);
-                unloadManipulationPaintingAreaCanvasEvents();
-            }
-            else if ("barMove" == type || "barZoom" == type)
-            {
-                AppBarButton app_btnReset = new AppBarButton();
-                app_btnReset.Name = "appButtonResetZoom";
-                app_btnReset.Icon = bitmapIconFrom("icon_menu_cursor.png");
-                app_btnReset.Label = "Ausgangsposition";
-                app_btnReset.Click += app_btn_reset_Click;
-
-                if ("barZoom" == type)
+                if(type == barImportPngText)
                 {
-                    AppBarButton app_btnZoomIn = new AppBarButton();
-                    AppBarButton app_btnZoomOut = new AppBarButton();
-                    app_btnZoomIn.Icon = bitmapIconFrom("icon_zoom_in.png");
-                    app_btnZoomOut.Icon = bitmapIconFrom("icon_zoom_out.png");
-                    app_btnZoomIn.Label = "Vergrößern";
-                    app_btnZoomOut.Label = "Verkleinern";
-                    app_btnZoomIn.Click += BtnZoomIn_Click;
-                    app_btnZoomOut.Click += BtnZoomOut_Click;
-                    cmdBar.PrimaryCommands.Add(app_btnZoomIn);
-                    cmdBar.PrimaryCommands.Add(app_btnZoomOut);
-
+                    AppBarButton app_btnImportPicture = appBarButtonWith("icon_menu_cursor.png", "Bild laden", "");
+                    app_btnImportPicture.Click += app_btnImportPicture_Click;
+                    cmdBar.PrimaryCommands.Add(app_btnImportPicture);
                 }
 
-                app_btnReset = new AppBarButton();
-                app_btnReset.Name = "appButtonResetZoom";
-                app_btnReset.Icon = bitmapIconFrom("icon_menu_cursor.png");
-                app_btnReset.Label = "Ausgangsposition";
+                AppBarButton app_btnReset = appBarButtonWith("icon_menu_cursor.png", "Ausgangsposition", "appButtonReset");
+                app_btnReset.Click += app_btn_reset_Click;
+                // TODO: comment in the following line if the importpngcontrol contains the rectangleshapebasecontrol
+                // app_btnReset.IsEnabled = ((RectangleShapeBaseTool)PocketPaintApplication.GetInstance().ToolCurrent)
+                //                         .RectangleShapeBase.IsModifiedRectangleForMovement;
+                // Debug.Assert(
+                //            ((RectangleShapeBaseTool)PocketPaintApplication.GetInstance().ToolCurrent)
+                //            .RectangleShapeBase != null);
+                cmdBar.PrimaryCommands.Add(app_btnReset);
+
+                loadManipulationPaintingAreaCanvasEvents();
+                unloadPointerEvents();
+            }
+            else if (type == barMoveText || type == barZoomText)
+            {
+                AppBarButton app_btnReset = appBarButtonWith("icon_menu_cursor.png", "Ausgangsposition", "appButtonResetZoom");
+                app_btnReset.Click += app_btn_reset_Click;
+
+                if (type == barZoomText)
+                {
+                    AppBarButton app_btnZoomIn = appBarButtonWith("icon_zoom_in.png", "Vergrößern", "");
+                    app_btnZoomIn.Click += BtnZoomIn_Click;
+                    cmdBar.PrimaryCommands.Add(app_btnZoomIn);
+
+                    AppBarButton app_btnZoomOut = appBarButtonWith("icon_zoom_out.png", "Verkleinern", "");
+                    app_btnZoomOut.Click += BtnZoomOut_Click;
+                    cmdBar.PrimaryCommands.Add(app_btnZoomOut);
+                }
+
+                app_btnReset = appBarButtonWith("icon_menu_cursor.png", "Ausgangsposition", "appButtonResetZoom");
                 app_btnReset.Click += app_btn_reset_Click;
                 app_btnReset.IsEnabled = zoomCounter == 0 ? false : true;
-
                 cmdBar.PrimaryCommands.Add(app_btnReset);
 
                 unloadPointerEvents();
                 loadManipulationPaintingAreaCanvasEvents();
             }
-            else if ("barRotate" == type)
+            else if (type == barRotateText)
             {
-                AppBarButton app_btnRotate_left = new AppBarButton();
-                AppBarButton app_btnRotate_right = new AppBarButton();
-                AppBarButton app_btnReset = new AppBarButton();
-
-                app_btnReset.Name = "appButtonResetRotate";
-                app_btnReset.IsEnabled = false;
-                app_btnRotate_left.Icon = bitmapIconFrom("icon_menu_rotate_left.png");
-                app_btnRotate_right.Icon = bitmapIconFrom("icon_menu_rotate_right.png");
-                app_btnReset.Icon = bitmapIconFrom("icon_menu_cursor.png");
-
-                app_btnReset.Label = "Ausgangsposition";
-                app_btnRotate_left.Label = "Rechts drehen";
-                app_btnRotate_right.Label = "Links drehen";
-
+                AppBarButton app_btnRotate_left = appBarButtonWith("icon_menu_rotate_left.png", "Rechts drehen", "");
                 app_btnRotate_left.Click += BtnLeft_OnClick;
-                app_btnRotate_right.Click += BtnRight_OnClick;
-                app_btnReset.Click += app_btn_reset_Click;
-
-                app_btnReset.IsEnabled = rotateCounter == 0 ? false : true;
-
                 cmdBar.PrimaryCommands.Add(app_btnRotate_left);
+
+                AppBarButton app_btnRotate_right = appBarButtonWith("icon_menu_rotate_right.png", "Links drehen", "");
+                app_btnRotate_right.Click += BtnRight_OnClick;
                 cmdBar.PrimaryCommands.Add(app_btnRotate_right);
-                cmdBar.PrimaryCommands.Add(app_btnReset);
-            }
-            else if ("barRectangle" == type)
-            {
-                AppBarButton app_btnBrushThickness = new AppBarButton();
-                AppBarButton app_btnReset = new AppBarButton();
 
-                app_btnReset.Name = "appButtonReset";
-                app_btnBrushThickness.Icon = bitmapIconFrom("icon_menu_strokes.png");
-                app_btnReset.Icon = bitmapIconFrom("icon_menu_cursor.png");
-
-                app_btnBrushThickness.Label = "Einstellungen";
-
-                app_btnReset.Label = "Ausgangsposition";
-                Debug.Assert(
-                            ((RectangleShapeBaseTool)PocketPaintApplication.GetInstance().ToolCurrent)
-                            .RectangleShapeBase != null);
-                app_btnReset.IsEnabled = ((RectangleShapeBaseTool) PocketPaintApplication.GetInstance().ToolCurrent)
-                                         .RectangleShapeBase.IsModifiedRectangleForMovement;
-
-                app_btnBrushThickness.Name = "ThicknessProperties";
-
-                app_btnBrushThickness.Click += btnThicknessBorder_Click;
+                AppBarButton app_btnReset = appBarButtonWith("icon_menu_cursor.png", "Ausgangsposition", "appButtonResetRotate");
                 app_btnReset.Click += app_btn_reset_Click;
-
+                app_btnReset.IsEnabled = rotateCounter == 0 ? false : true;
                 cmdBar.PrimaryCommands.Add(app_btnReset);
-                cmdBar.PrimaryCommands.Add(app_btnBrushThickness);
-
-                AppBarButton app_btnColor = new AppBarButton();
-                app_btnColor.Icon = bitmapIconFrom("icon_menu_color_palette.png");
-                app_btnColor.Label = "Farbe";
-                app_btnColor.Click += PocketPaintApplication.GetInstance().ApplicationBarListener.BtnColor_Click;
-                cmdBar.PrimaryCommands.Add(app_btnColor);
-
-                loadManipulationPaintingAreaCanvasEvents();
-                unloadPointerEvents();
             }
-            else if ("barFlip" == type)
+            else if (type == barFlipText)
             {
-                AppBarButton app_btnHorizontal = new AppBarButton();
-                AppBarButton app_btnVertical = new AppBarButton();
-                AppBarButton app_btnReset = new AppBarButton();
-
-                app_btnReset.Name = "appButtonResetFlip";
-                app_btnHorizontal.Icon = bitmapIconFrom("icon_menu_flip_horizontal.png");
-                app_btnVertical.Icon = bitmapIconFrom("icon_menu_flip_vertical.png");
-                app_btnReset.Icon = bitmapIconFrom("icon_menu_cursor.png");
-
-                app_btnHorizontal.Label = "Horizontal";
-                app_btnReset.Label = "Ausgangsposition";
-                app_btnVertical.Label = "Vertikal";
-
+                AppBarButton app_btnHorizontal = appBarButtonWith("icon_menu_flip_horizontal.png", "Horizontal", "");
                 app_btnHorizontal.Click += BtnHorizotal_OnClick;
-                app_btnVertical.Click += BtnVertical_OnClick;
-                app_btnReset.Click += app_btn_reset_Click;
-
-                app_btnReset.IsEnabled = flipHorizontal | flipVertical;
-
                 cmdBar.PrimaryCommands.Add(app_btnHorizontal);
+
+                AppBarButton app_btnVertical = appBarButtonWith("icon_menu_flip_vertical.png", "Vertikal", "");
+                app_btnVertical.Click += BtnVertical_OnClick;
                 cmdBar.PrimaryCommands.Add(app_btnVertical);
+
+                AppBarButton app_btnReset = appBarButtonWith("icon_menu_cursor.png", "Ausgangsposition", "appButtonResetFlip");
+                app_btnReset.Click += app_btn_reset_Click;
+                app_btnReset.IsEnabled = flipHorizontal | flipVertical;
                 cmdBar.PrimaryCommands.Add(app_btnReset);
             }
-            else if ("barStamp" == type)
+            else if (type == barStampText)
             {
-                AppBarButton app_btnStampCopy = new AppBarButton();
-                AppBarButton app_btnStampClear = new AppBarButton();
-                AppBarButton app_btnStampPaste = new AppBarButton();
-                AppBarButton app_btnResetSelection = new AppBarButton();
-
-                app_btnResetSelection.Name = "appButtonResetStamp";
-
-                app_btnStampCopy.Icon = bitmapIconFrom("icon_menu_stamp_copy.png");
-
-                app_btnStampCopy.Name = "appBtnStampCopy";
-                app_btnStampPaste.Name = "appBtnStampPaste";
-                app_btnStampClear.Name = "appBtnStampReset";
-
-                app_btnStampClear.Icon = bitmapIconFrom("icon_menu_stamp_clear.png");
-                app_btnStampPaste.Icon = bitmapIconFrom("icon_menu_stamp_paste.png");
-                app_btnResetSelection.Icon = bitmapIconFrom("icon_menu_cursor.png");
-
-                app_btnStampClear.Click += app_btnStampClear_Click;
+                AppBarButton app_btnStampCopy = appBarButtonWith("icon_menu_stamp_copy.png", "Auswahl merken", "appBtnStampCopy");
                 app_btnStampCopy.Click += app_btnStampCopy_Click;
-                app_btnStampPaste.Click += app_btnStampPaste_Click;
-                app_btnResetSelection.Click += app_btn_reset_Click;
-
-                app_btnStampClear.Label = "Auswahl zurücksetzen";
-                app_btnStampCopy.Label = "Auswahl merken";
-                app_btnStampPaste.Label = "Stempeln";
-                app_btnResetSelection.Label = "Tool zurücksetzen";
-
-                app_btnStampClear.IsEnabled = false;
-                app_btnStampPaste.Visibility = Visibility.Collapsed;
                 cmdBar.PrimaryCommands.Add(app_btnStampCopy);
-                cmdBar.PrimaryCommands.Add(app_btnStampPaste);
+
+                AppBarButton app_btnStampClear = appBarButtonWith("icon_menu_stamp_clear.png", "Auswahl zurücksetzen", "appBtnStampReset");
+                app_btnStampClear.Click += app_btnStampClear_Click;
+                app_btnStampClear.IsEnabled = false;
                 cmdBar.PrimaryCommands.Add(app_btnStampClear);
+
+                AppBarButton app_btnStampPaste = appBarButtonWith("icon_menu_stamp_paste.png", "Stempeln", "appBtnStampPaste");
+                app_btnStampPaste.Click += app_btnStampPaste_Click;
+                app_btnStampPaste.Visibility = Visibility.Collapsed;
+                cmdBar.PrimaryCommands.Add(app_btnStampPaste);
+
+                AppBarButton app_btnResetSelection = appBarButtonWith("icon_menu_cursor.png", "Tool zurücksetzen", "appButtonResetStamp");
+                app_btnResetSelection.Click += app_btn_reset_Click;
                 cmdBar.PrimaryCommands.Add(app_btnResetSelection);
 
                 loadManipulationPaintingAreaCanvasEvents();
@@ -814,31 +676,27 @@ namespace Catrobat.Paint.WindowsPhone.View
                 return;
             }
 
-            AppBarButton app_btnClearElementsInWorkingSpace = new AppBarButton();
-            AppBarButton app_btnSave = new AppBarButton();
-            AppBarButton app_btnSaveCopy = new AppBarButton();
-            AppBarButton app_btnLoad = new AppBarButton();
-            AppBarButton app_btnFullScreen = new AppBarButton();
-            AppBarButton app_btnMoreInfo = new AppBarButton();
-            AppBarButton app_btnNewPicture = new AppBarButton();
-
-            app_btnClearElementsInWorkingSpace.Name = "appBarButtonClearWorkingSpace";
-            app_btnSave.Name = "appbarButtonSave";
-
+            AppBarButton app_btnClearElementsInWorkingSpace = appBarButtonWith("", "Arbeitsfläche löschen", "appBarButtonClearWorkingSpace");
             app_btnClearElementsInWorkingSpace.Click += app_btnClearElementsInWorkingSpace_Click;
-            app_btnFullScreen.Click += app_btnFullScreen_Click;
-            app_btnLoad.Click += app_btnLoad_Click;
+            app_btnClearElementsInWorkingSpace.IsEnabled = PaintingAreaCanvas.Children.Count > 0 ? true : false;
+
+            AppBarButton app_btnSave = appBarButtonWith("", "Speichern", "appbarButtonSave");
             app_btnSave.Click += app_btnSave_Click;
-            app_btnNewPicture.Click += app_btnNewPicture_Click;
+            app_btnSave.IsEnabled = PaintingAreaCanvas.Children.Count > 0 ? true : false;
+
+            AppBarButton app_btnSaveCopy = appBarButtonWith("", "Kopie speichern", "");
+
+            AppBarButton app_btnLoad = appBarButtonWith("", "Laden", "");
+            app_btnLoad.Click += app_btnLoad_Click;
+
+            AppBarButton app_btnFullScreen = appBarButtonWith("", "Vollbild", "");
+            app_btnFullScreen.Click += app_btnFullScreen_Click;
+
+            AppBarButton app_btnMoreInfo = appBarButtonWith("", "Mehr", "");
             app_btnMoreInfo.Click += app_btnMoreInfo_Click;
 
-            app_btnClearElementsInWorkingSpace.Label = "Arbeitsfläche löschen";
-            app_btnSave.Label = "Speichern";
-            app_btnSaveCopy.Label = "Kopie speichern";
-            app_btnLoad.Label = "Laden";
-            app_btnFullScreen.Label = "Vollbild";
-            app_btnMoreInfo.Label = "Mehr";
-            app_btnNewPicture.Label = "Neues Bild";
+            AppBarButton app_btnNewPicture = appBarButtonWith("", "Neues Bild", "");            
+            app_btnNewPicture.Click += app_btnNewPicture_Click;
 
             cmdBar.SecondaryCommands.Add(app_btnClearElementsInWorkingSpace);
             cmdBar.SecondaryCommands.Add(app_btnNewPicture);
@@ -846,9 +704,6 @@ namespace Catrobat.Paint.WindowsPhone.View
             cmdBar.SecondaryCommands.Add(app_btnSave);
             cmdBar.SecondaryCommands.Add(app_btnFullScreen);
             cmdBar.SecondaryCommands.Add(app_btnMoreInfo);
-
-            app_btnClearElementsInWorkingSpace.IsEnabled = PaintingAreaCanvas.Children.Count > 0 ? true : false;
-            app_btnSave.IsEnabled = PaintingAreaCanvas.Children.Count > 0 ? true : false;
 
             BottomAppBar = cmdBar;
             current_appbar = type;
@@ -1230,6 +1085,7 @@ namespace Catrobat.Paint.WindowsPhone.View
             {
                 case ToolType.Brush:
                 case ToolType.Cursor:
+                case ToolType.Eraser:
                 case ToolType.Line:
                     if (tool.GetToolType() == ToolType.Cursor)
                     {
@@ -1238,7 +1094,7 @@ namespace Catrobat.Paint.WindowsPhone.View
                     }
                     else
                     {
-                        createAppBarAndSwitchAppBarContent("barStandard");
+                        createAppBarAndSwitchAppBarContent("barBrushEraserLine");
                     }
                     GrdThicknessControlVisibility = PocketPaintApplication.GetInstance().GrdThicknessControlState;
                     break;
@@ -1248,9 +1104,6 @@ namespace Catrobat.Paint.WindowsPhone.View
                 case ToolType.Ellipse:
                     createAppBarAndSwitchAppBarContent("barEllipse");
                     visibilityGridEllRecControl = PocketPaintApplication.GetInstance().GridUcRellRecControlState;
-                    break;
-                case ToolType.Eraser:
-                    createAppBarAndSwitchAppBarContent("barEraser");
                     break;
                 case ToolType.Fill:
                     createAppBarAndSwitchAppBarContent("barFill");
