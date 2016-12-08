@@ -45,7 +45,7 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
         // corner_value = 3
         //   LeftBottomCorner
         // HACK: Is needed to resize rotated objects
-        private int corners_value = -1;
+        private int m_corners_value = -1;
         private double m_center_x;
         private double m_center_y;
 
@@ -80,12 +80,19 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
             double currentGridMainHeight = GridMainSelection.Height;
             double currentGridMainWidth = GridMainSelection.Width;
 
+            // HACK: Is needed to resize a rotated objects
             double centerX = m_center_x;
             double centerY = m_center_y;
-       
+            int corners_value = m_corners_value;
+            float currentRotationAngle = m_currentRotationAngle;
+
             ResetRectangleShapeBaseControl();
+
+            // HACK: Is needed to resize a rotated objects
             m_center_x = centerX;
             m_center_y = centerY;
+            m_corners_value = corners_value;
+            m_currentRotationAngle = currentRotationAngle;
 
             GridMainSelection.Height = currentGridMainHeight;
             GridMainSelection.Width = currentGridMainWidth;
@@ -130,10 +137,10 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
         private void TopCenterGrid_OnManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
         {
             setCenterxAndCenteryCoordinates((GridMainSelection.Width / 2.0) * -1, (GridMainSelection.Height / 2.0) * -1);
-            if (corners_value != 0)
+            if (m_corners_value != 0)
             {
                 TodoNeuerName(m_center_x , m_center_y, new Point(1, 1));
-                corners_value = 0;
+                m_corners_value = 0;
             }
             resizeHeight(e.Delta.Translation.X, e.Delta.Translation.Y, Orientation.Top);
         }
@@ -141,10 +148,10 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
         private void TopLeftGrid_OnManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
         {
             setCenterxAndCenteryCoordinates((GridMainSelection.Width / 2.0) * -1, (GridMainSelection.Height / 2.0) * -1);
-            if (corners_value != 0)
+            if (m_corners_value != 0)
             {
                 TodoNeuerName(m_center_x, m_center_y, new Point(1, 1));
-                corners_value = 0;
+                m_corners_value = 0;
             }
             else
             {
@@ -156,10 +163,10 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
         private void TopRightGrid_OnManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
         {
             setCenterxAndCenteryCoordinates(GridMainSelection.Width / 2.0, (GridMainSelection.Height / 2.0) * -1);
-            if (corners_value != 1)
+            if (m_corners_value != 1)
             {
                 TodoNeuerName(m_center_x, m_center_y, new Point(0, 1));
-                corners_value = 1;
+                m_corners_value = 1;
             }
             else
             {
@@ -171,10 +178,10 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
         private void CenterRightGrid_OnManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
         {
             setCenterxAndCenteryCoordinates(GridMainSelection.Width / 2.0, GridMainSelection.Height / 2.0);
-            if (corners_value != 2)
+            if (m_corners_value != 2)
             {
                 TodoNeuerName(m_center_x, m_center_y, new Point(0, 0));
-                corners_value = 2;
+                m_corners_value = 2;
             }
             resizeWidth(e.Delta.Translation.X, e.Delta.Translation.Y, Orientation.Right);
         }
@@ -182,10 +189,10 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
         private void BottomRightGrid_OnManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
         {
             setCenterxAndCenteryCoordinates(GridMainSelection.Width / 2.0, GridMainSelection.Height / 2.0);
-            if (corners_value != 2)
+            if (m_corners_value != 2)
             {
                 TodoNeuerName(m_center_x, m_center_y, new Point(0, 0));
-                corners_value = 2;
+                m_corners_value = 2;
             }
             resizeHeight(e.Delta.Translation.X, e.Delta.Translation.Y, Orientation.Bottom);
             resizeWidth(e.Delta.Translation.X, e.Delta.Translation.Y, Orientation.Right);
@@ -194,10 +201,10 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
         private void BottomCenterGrid_OnManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
         {
             setCenterxAndCenteryCoordinates(GridMainSelection.Width / 2.0, GridMainSelection.Height / 2.0);
-            if (corners_value != 2)
+            if (m_corners_value != 2)
             {
                 TodoNeuerName(m_center_x, m_center_y, new Point(0, 0));
-                corners_value = 2;
+                m_corners_value = 2;
             }
             resizeHeight(e.Delta.Translation.X, e.Delta.Translation.Y, Orientation.Bottom);
         }
@@ -205,10 +212,10 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
         private void BottomLeftGrid_OnManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
         {
             setCenterxAndCenteryCoordinates((GridMainSelection.Width / 2.0) * -1, GridMainSelection.Height / 2.0);
-            if (corners_value != 3)
+            if (m_corners_value != 3)
             {
                 TodoNeuerName(m_center_x, m_center_y, new Point(1, 0));
-                corners_value = 3;
+                m_corners_value = 3;
             }
             resizeHeight(e.Delta.Translation.X, e.Delta.Translation.Y, Orientation.Bottom);
             resizeWidth(e.Delta.Translation.X, e.Delta.Translation.Y, Orientation.Left);
@@ -217,10 +224,10 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
         private void CenterLeftGrid_OnManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
         {
             setCenterxAndCenteryCoordinates((GridMainSelection.Width / 2.0) * -1, (GridMainSelection.Height / 2.0) * -1);
-            if (corners_value != 0)
+            if (m_corners_value != 0)
             {
                 TodoNeuerName(m_center_x, m_center_y, new Point(1, 1));
-                corners_value = 0;
+                m_corners_value = 0;
             }
             resizeWidth(e.Delta.Translation.X, e.Delta.Translation.Y, Orientation.Left);
         }
@@ -576,6 +583,7 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
 
             m_TransformGridMain.Children.Clear();
             m_RotationAngle = 0;
+            m_currentRotationAngle = 0;
 
             m_CenterPointRotation.X = 0.0;
             m_CenterPointRotation.Y = 0.0;
@@ -589,6 +597,7 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
             ResetAppBarButtonRectangleSelectionControl(false);
             IsModifiedRectangleForMovement = false;
             GridMainSelection.Margin = new Thickness(0,0,0,0);
+            m_corners_value = -1;
         }
 
         private void RotationTopRight_OnManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
