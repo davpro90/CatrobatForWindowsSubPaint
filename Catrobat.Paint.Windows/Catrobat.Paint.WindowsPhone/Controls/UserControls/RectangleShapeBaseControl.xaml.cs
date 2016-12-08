@@ -69,10 +69,6 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
                 X = 0.0,
                 Y = 0.0
             };
-
-            double halfWidthGridMainSelection = GridMainSelection.Width / 2.0;
-            double halfHeightGridMainSelection = GridMainSelection.Height / 2.0;
-            GridMainSelection.Margin = new Thickness(halfWidthGridMainSelection, halfHeightGridMainSelection, halfWidthGridMainSelection, halfHeightGridMainSelection);
             IsModifiedRectangleForMovement = false;
 
             m_center_x = (GridMainSelection.Width / 2.0);
@@ -88,9 +84,9 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
             ResetRectangleShapeBaseControl();
 
             GridMainSelection.Height = currentGridMainHeight;
+            GridMainSelection.Width = currentGridMainWidth;
             GridMainSelection.Margin = m_currentGridMainMargin;
             GridMainSelection.RenderTransformOrigin = transformOrigin;
-            GridMainSelection.Width = currentGridMainWidth;
 
             MovementRectangle.Height = currentGridMainHeight - 90;
             MovementRectangle.Width = currentGridMainWidth - 90;
@@ -320,6 +316,7 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
             {
                 deltaXRight = deltaXCorrected;
             }
+
             setGridMainSelectionMargin(GridMainSelection.Margin.Left - deltaXLeft,
                                             GridMainSelection.Margin.Top,
                                             GridMainSelection.Margin.Right - deltaXRight,
@@ -366,6 +363,8 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
             {
                 deltaYBottom = deltaYCorrected;
             }
+
+
             setGridMainSelectionMargin(GridMainSelection.Margin.Left,
                                             GridMainSelection.Margin.Top - deltaYTop,
                                             GridMainSelection.Margin.Right,
@@ -562,7 +561,6 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
         {
             GridMainSelection.Width = m_DefaultGridMainSize;
             GridMainSelection.Height = m_DefaultGridMainSize;
-            GridMainSelection.Margin = new Thickness(0.0, 0.0, 0.0, 0.0);
 
             MovementRectangle.Width = m_DefaultRectangleForMovementSize;
             MovementRectangle.Height = m_DefaultRectangleForMovementSize;
@@ -581,8 +579,12 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
             m_CornerPoint.X = 0.0;
             m_CornerPoint.Y = 0.0;
 
+            m_center_x = GridMainSelection.Width / 2.0;
+            m_center_y = GridMainSelection.Height / 2.0;
+
             ResetAppBarButtonRectangleSelectionControl(false);
             IsModifiedRectangleForMovement = false;
+            GridMainSelection.Margin = new Thickness(0,0,0,0);
         }
 
         private void RotationTopRight_OnManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
