@@ -6,8 +6,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
-using System.Numerics;
-using System.Windows;
+
 
 // Die Elementvorlage "Benutzersteuerelement" ist unter http://go.microsoft.com/fwlink/?LinkId=234236 dokumentiert.
 
@@ -80,8 +79,13 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
             m_currentGridMainMargin = GridMainSelection.Margin;
             double currentGridMainHeight = GridMainSelection.Height;
             double currentGridMainWidth = GridMainSelection.Width;
+
+            double centerX = m_center_x;
+            double centerY = m_center_y;
        
             ResetRectangleShapeBaseControl();
+            m_center_x = centerX;
+            m_center_y = centerY;
 
             GridMainSelection.Height = currentGridMainHeight;
             GridMainSelection.Width = currentGridMainWidth;
@@ -576,11 +580,11 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
             m_CenterPointRotation.X = 0.0;
             m_CenterPointRotation.Y = 0.0;
 
-            m_CornerPoint.X = 0.0;
-            m_CornerPoint.Y = 0.0;
-
             m_center_x = GridMainSelection.Width / 2.0;
             m_center_y = GridMainSelection.Height / 2.0;
+
+            m_CornerPoint.X = 0.0;
+            m_CornerPoint.Y = 0.0;
 
             ResetAppBarButtonRectangleSelectionControl(false);
             IsModifiedRectangleForMovement = false;
