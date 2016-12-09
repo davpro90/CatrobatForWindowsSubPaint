@@ -21,21 +21,21 @@ namespace Catrobat.Paint.WindowsPhone.Tool
 
         public override void Draw(object o)
         {
+            var coordinate = (Point)o;
             var strokeThickness = PocketPaintApplication.GetInstance().PaintData.strokeThickness;
 
             RectangleSelectionControl currentRectangleSelectionControl = PocketPaintApplication.GetInstance().RectangleSelectionControl;
             Rectangle rectangleToDraw = currentRectangleSelectionControl.RectangleToDraw;
 
-            var coordinate = (Point)o;
-
             double widthOfRectangleToDraw = rectangleToDraw.Width - strokeThickness;
             double heightOfRectangleToDraw = rectangleToDraw.Height - strokeThickness;
 
-            var angle = PocketPaintApplication.GetInstance().angularDegreeOfWorkingSpaceRotation;
             Rect rect = new Rect();
             rect.X = coordinate.X + strokeThickness / 2;
             rect.Y = coordinate.Y + strokeThickness / 2;
-            switch (angle)
+            var angleOfWorkingspace = PocketPaintApplication.GetInstance().angularDegreeOfWorkingSpaceRotation;
+
+            switch (angleOfWorkingspace)
             {
                 case 0:
                 case 180:
@@ -59,7 +59,6 @@ namespace Catrobat.Paint.WindowsPhone.Tool
                 rotateTransform.CenterX = currentRectangleSelectionControl.GetControlCenterPoint().X;
                 rotateTransform.CenterY = currentRectangleSelectionControl.GetControlCenterPoint().Y;
                 rotateTransform.Angle = lastRotateTransform.Angle;
-
                 myRectGeometry.Transform = rotateTransform;
             }
 

@@ -113,6 +113,8 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
                 CenterY = m_center_y
             };
             addTransformation(ct);
+            ResetAppBarButtonRectangleSelectionControl(true);
+            IsModifiedRectangleForMovement = true;
         }
 
         public bool IsModifiedRectangleForMovement { get; set; }
@@ -241,6 +243,8 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
                                                      GridMainSelection.Margin.Top + yVal,
                                                      GridMainSelection.Margin.Right - xVal,
                                                      GridMainSelection.Margin.Bottom - yVal);
+            ResetAppBarButtonRectangleSelectionControl(true);
+            IsModifiedRectangleForMovement = true;
         }
 
         private void rectEllipseForMovement_Tapped(object sender, TappedRoutedEventArgs e)
@@ -345,11 +349,11 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
             {
                 rotation += 360;
             }
+
             double rotationRadian = PocketPaintApplication.DegreeToRadian(rotation);
+            double deltaYCorrected = (Math.Sin(-rotationRadian) * (deltaX))
+                    + (Math.Cos(-rotationRadian) * (deltaY));
 
-
-            double deltaYCorrected = Math.Sin(-rotationRadian) * (deltaX)
-                    + Math.Cos(-rotationRadian) * (deltaY);
             if (orientation == Orientation.Top)
             {
                 deltaYCorrected = deltaYCorrected * -1;
@@ -464,9 +468,6 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
             }
 
             m_TransformGridMain.Children.Add(currentTransform);
-
-            ResetAppBarButtonRectangleSelectionControl(true);
-            IsModifiedRectangleForMovement = true;
         }
 
         public void ResetAppBarButtonRectangleSelectionControl(bool isActivated)
@@ -665,6 +666,8 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
             };
             m_currentRotationAngle = m_RotationAngle;
             addTransformation(ct);
+            ResetAppBarButtonRectangleSelectionControl(true);
+            IsModifiedRectangleForMovement = true;
         }
 
         private Point GetCornerCoordinate(Orientation orientation, Point centerPoint)
