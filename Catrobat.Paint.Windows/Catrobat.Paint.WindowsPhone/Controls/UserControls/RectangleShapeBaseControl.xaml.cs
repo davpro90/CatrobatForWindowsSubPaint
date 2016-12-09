@@ -136,6 +136,12 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
             m_center_y = centerY;
         }
 
+        public void setCenterxAndCenteryCoordinates()
+        {
+            m_center_x = GridMainSelection.Width / 2.0;
+            m_center_y = GridMainSelection.Height / 2.0;
+        }
+
         private void TopCenterGrid_OnManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
         {
             setCenterxAndCenteryCoordinates((GridMainSelection.Width / 2.0) * -1, (GridMainSelection.Height / 2.0) * -1);
