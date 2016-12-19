@@ -45,6 +45,28 @@
                 Width="{Binding ElementName=AreaToDrawGrid, Path=Width}"
                 />
 
+            <Rectangle
+                x:Name="AreaToDrawStamp"
+                Width="{Binding ElementName=AreaToDrawGrid,
+                                Path=Width}"
+                Height="{Binding ElementName=AreaToDrawGrid,
+                                 Path=Height}"
+                Margin="0,0,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Fill="Transparent"
+                Stroke="CornflowerBlue"
+                StrokeLineJoin="Miter"
+                StrokeThickness="3"
+                Visibility="Visible"
+                />
+
+            <Image
+                x:Name="imgStampedImage"
+                Margin="3,3,3,3"
+                Stretch="Fill"
+                />
+
             <Ellipse
                 x:Name="AreaToDrawEllipse"
                 Fill="Black"
@@ -311,15 +333,15 @@
             >
 
             <userControls:RotationArrowsShape
-            x:Name="rotationArrowBottomRight"
-            Margin="0,0,-6,-30"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Bottom"
-            >
+                x:Name="rotationArrowBottomRight"
+                Margin="0,0,-6,-30"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                >
                 <userControls:RotationArrowsShape.RenderTransform>
                     <CompositeTransform
-                    Rotation="180"
-                    />
+                        Rotation="180"
+                        />
                 </userControls:RotationArrowsShape.RenderTransform>
             </userControls:RotationArrowsShape>
         </Grid>

@@ -6,6 +6,9 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Catrobat.Paint.WindowsPhone.Tool;
+using System.Numerics;
+using System.Windows;
 
 
 // Die Elementvorlage "Benutzersteuerelement" ist unter http://go.microsoft.com/fwlink/?LinkId=234236 dokumentiert.
@@ -72,6 +75,10 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
 
             m_center_x = (GridMainSelection.Width / 2.0);
             m_center_y = (GridMainSelection.Height / 2.0);
+
+            var marginValueLeftAndRight = (Window.Current.Bounds.Width - GridMainSelection.Width) / 2;
+            var marginValueTopAndBottom = (Window.Current.Bounds.Height - GridMainSelection.Height) / 2;
+            GridMainSelection.Margin = new Thickness(marginValueLeftAndRight, marginValueTopAndBottom, marginValueLeftAndRight, marginValueTopAndBottom);
         }
 
         public void TodoNeuerName(double center_x, double center_y, Point transformOrigin)
@@ -256,6 +263,23 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
         private void rectEllipseForMovement_Tapped(object sender, TappedRoutedEventArgs e)
         {
             Debug.Assert(AreaToDraw.Children.Count == 1);
+            ToolBase currentTool  = PocketPaintApplication.GetInstance().ToolCurrent;
+
+            if (currentTool.GetToolType().Equals(ToolType.Stamp))
+            {
+                var buttonName = (CommandBar)PocketPaintApplication.GetInstance().PaintingAreaView.BottomAppBar;
+
+                if(((AppBarButton)(buttonName.PrimaryCommands[0])).Visibility == Visibility.Visible)
+                {
+                    PocketPaintApplication.GetInstance().PaintingAreaView.app_btnStampCopy_Click(sender, e);
+                } else
+                {
+                    PocketPaintApplication.GetInstance().PaintingAreaView.app_btnStampPaste_Click(sender, e);
+                }
+                
+                return;
+            }
+
             UIElement elementToDraw = AreaToDraw.Children[0];
 
             Grid grid = GridMainSelection;
@@ -300,6 +324,8 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
         private void resizeWidth(double deltaX, double deltaY, Orientation orientation)
         {
             Debug.Assert(orientation == Orientation.Left || orientation == Orientation.Right);
+            m_CenterPointRotation.X += deltaX;
+            m_CenterPointRotation.Y += deltaY;
 
             double rotation = m_RotationAngle;
             while (rotation < 0)
@@ -313,7 +339,6 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
 
             if (orientation == Orientation.Left)
             {
-                System.Diagnostics.Debug.WriteLine("\nhier");
                 deltaXCorrected = deltaXCorrected * -1;
             }
 
@@ -349,6 +374,8 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
         private void resizeHeight(double deltaX, double deltaY, Orientation orientation)
         {
             Debug.Assert(orientation == Orientation.Top || orientation == Orientation.Bottom);
+            m_CenterPointRotation.X += deltaX;
+            m_CenterPointRotation.Y += deltaY;
 
             double rotation = m_RotationAngle;
             while (rotation < 0)
@@ -528,6 +555,7 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
                 GridMainSelection.Height = newHeightRectangleToDraw + (GridMainSelection.Height - AreaToDrawGrid.Height);
                 MovementRectangle.Height = newHeightRectangleToDraw + (MovementRectangle.Height - AreaToDrawGrid.Height);
                 AreaToDrawGrid.Height = newHeightRectangleToDraw;
+                PocketPaintApplication.GetInstance().StampControl.setHeightOfControl(newHeightRectangleToDraw);
             }
         }
 
@@ -552,6 +580,7 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
                 GridMainSelection.Width = newWidthOfControl;
                 MovementRectangle.Width = MovementRectangle.Width + offset;
                 AreaToDrawGrid.Width = AreaToDraw.Width + offset;
+                PocketPaintApplication.GetInstance().StampControl.setWidthOfControl(newWidthRectangleToDraw);
             }
         }
 
@@ -591,7 +620,7 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
         }
 
         private void setGridMainSelectionMargin(double leftMargin, double topMargin, double rightMargin, double bottomMargin)
-        {        
+        {
             GridMainSelection.Margin = new Thickness(leftMargin, topMargin, rightMargin, bottomMargin);
         }
 
