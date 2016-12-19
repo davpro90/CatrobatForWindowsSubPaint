@@ -116,7 +116,7 @@ namespace Catrobat.Paint.WindowsPhone.View
             PocketPaintApplication.GetInstance().GrdThicknessControlState = Visibility.Collapsed;
             createAppBarAndSwitchAppBarContent(current_appbar);
 
-            setSizeOfPaintingAreaViewCheckered((int)Window.Current.Bounds.Height, (int)Window.Current.Bounds.Width);
+            setSizeOfGridWorkingSpace((int)Window.Current.Bounds.Height, (int)Window.Current.Bounds.Width);
             alignPositionOfGridWorkingSpace(null);
             PocketPaintApplication.GetInstance().PaintingAreaCanvas.Height = Window.Current.Bounds.Height;
             PocketPaintApplication.GetInstance().PaintingAreaCanvas.Width = Window.Current.Bounds.Width;
@@ -164,7 +164,7 @@ namespace Catrobat.Paint.WindowsPhone.View
             }
         }
 
-        public void setSizeOfPaintingAreaViewCheckered(int height, int width)
+        public void setSizeOfGridWorkingSpace(int height, int width)
         {
             GridWorkingSpace.Height = height;
             GridWorkingSpace.Width = width;
