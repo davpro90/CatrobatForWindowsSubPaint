@@ -580,7 +580,7 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
                 GridMainSelection.Width = newWidthOfControl;
                 MovementRectangle.Width = MovementRectangle.Width + offset;
                 AreaToDrawGrid.Width = AreaToDraw.Width + offset;
-                PocketPaintApplication.GetInstance().StampControl.setWidthOfControl(newWidthRectangleToDraw);
+                PocketPaintApplication.GetInstance().StampControl.setWidthOfControl(newWidthOfControl);
             }
         }
 

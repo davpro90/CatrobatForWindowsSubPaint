@@ -558,7 +558,7 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
         public Point GetXyOffsetBetweenPaintingAreaAndStampControlSelection()
         {
             TransformGroup tgPaintingAreaCheckeredGrid = PocketPaintApplication.GetInstance().GridWorkingSpace.RenderTransform as TransformGroup;
-            _transformGridMain = RectangleShapeBaseControl.GetTransformation();
+            _transformGridMain = RectangleShapeBaseControl.GetMainGrid().RenderTransform as TransformGroup;
             PocketPaintApplication currentPaintApplication = PocketPaintApplication.GetInstance();
             if (currentPaintApplication == null || tgPaintingAreaCheckeredGrid == null)
             {
