@@ -912,7 +912,7 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
                 image.Width = widthOfcroppedWorkingSpacePicture;
 
                 addImageToPaintingAreaCanvas(image);
-                currentPaintApplication.PaintingAreaView.setSizeOfPaintingAreaViewCheckered(heightOfcroppedWorkingSpacePicture, widthOfcroppedWorkingSpacePicture);
+                currentPaintApplication.PaintingAreaView.setSizeOfGridWorkingSpace(heightOfcroppedWorkingSpacePicture, widthOfcroppedWorkingSpacePicture);
                 currentPaintApplication.PaintingAreaView.alignPositionOfGridWorkingSpace(null);
                 setSizeOfPaintingAreaCanvas(heightOfcroppedWorkingSpacePicture, widthOfcroppedWorkingSpacePicture);
             }
@@ -923,7 +923,7 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
                 image.Width = writeableBitmapToAdd.PixelWidth;
 
                 addImageToPaintingAreaCanvas(image);
-                currentPaintApplication.PaintingAreaView.setSizeOfPaintingAreaViewCheckered(writeableBitmapToAdd.PixelHeight, writeableBitmapToAdd.PixelWidth);
+                currentPaintApplication.PaintingAreaView.setSizeOfGridWorkingSpace(writeableBitmapToAdd.PixelHeight, writeableBitmapToAdd.PixelWidth);
                 currentPaintApplication.PaintingAreaView.alignPositionOfGridWorkingSpace(null);
                 setSizeOfPaintingAreaCanvas(writeableBitmapToAdd.PixelHeight, writeableBitmapToAdd.PixelWidth);
             }
@@ -936,7 +936,7 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
                 image.Width = widthOfcroppedWorkingSpacePicture;
 
                 addImageToPaintingAreaCanvas(image);
-                currentPaintApplication.PaintingAreaView.setSizeOfPaintingAreaViewCheckered(writeableBitmapToAdd.PixelHeight, writeableBitmapToAdd.PixelWidth);
+                currentPaintApplication.PaintingAreaView.setSizeOfGridWorkingSpace(writeableBitmapToAdd.PixelHeight, writeableBitmapToAdd.PixelWidth);
                 currentPaintApplication.PaintingAreaView.alignPositionOfGridWorkingSpace(null);
                 setSizeOfPaintingAreaCanvas(heigthOfcroppedWorkingSpacePicture, widthOfcroppedWorkingSpacePicture);
             }
@@ -947,7 +947,7 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
                 image.Width = writeableBitmapToAdd.PixelWidth;
 
                 addImageToPaintingAreaCanvas(image);
-                currentPaintApplication.PaintingAreaView.setSizeOfPaintingAreaViewCheckered(writeableBitmapToAdd.PixelHeight, writeableBitmapToAdd.PixelWidth);
+                currentPaintApplication.PaintingAreaView.setSizeOfGridWorkingSpace(writeableBitmapToAdd.PixelHeight, writeableBitmapToAdd.PixelWidth);
                 currentPaintApplication.PaintingAreaView.alignPositionOfGridWorkingSpace(null);
                 setSizeOfPaintingAreaCanvas(writeableBitmapToAdd.PixelHeight, writeableBitmapToAdd.PixelWidth);
             }

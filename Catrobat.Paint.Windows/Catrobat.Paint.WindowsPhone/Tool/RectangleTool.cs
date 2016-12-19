@@ -5,6 +5,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Shapes;
 using Catrobat.Paint.WindowsPhone.Controls.UserControls;
+using Windows.UI.Xaml.Controls;
 
 namespace Catrobat.Paint.WindowsPhone.Tool
 {
@@ -20,6 +21,44 @@ namespace Catrobat.Paint.WindowsPhone.Tool
         }
 
         public override void Draw(object o)
+        {
+            Point leftPoint = (Point)o;
+            Grid GridMainSelection = this.RectangleShapeBase.GetMainGrid();
+            Point center = this.RectangleShapeBase.GetCenterCoordinateOfGridMain();
+            double rotationAngleOfGridMain = this.RectangleShapeBase.GetRotationAngleOfGridMain();
+
+            Rectangle rectangleToDraw = new Rectangle();
+
+
+            TransformGroup transformGroup = new TransformGroup();
+            TranslateTransform translateTransform = new TranslateTransform();
+            translateTransform.X = leftPoint.X;
+            translateTransform.Y = leftPoint.Y;
+            
+
+            RotateTransform rotateTransform = GridMainSelection.RenderTransform as RotateTransform;
+            var ct = new RotateTransform
+            {
+                Angle = rotationAngleOfGridMain,
+                CenterX = center.X,
+                CenterY = center.Y
+            };
+            transformGroup.Children.Add(translateTransform);
+            transformGroup.Children.Add(ct);
+            
+            rectangleToDraw.RenderTransform = transformGroup;
+
+            // rectangleToDraw.Margin = GridMainSelection.Margin;
+            rectangleToDraw.RenderTransformOrigin = GridMainSelection.RenderTransformOrigin;
+            rectangleToDraw.Fill = PocketPaintApplication.GetInstance().PaintData.colorSelected;
+
+            rectangleToDraw.Height = GridMainSelection.Height - 130;
+            rectangleToDraw.Width = GridMainSelection.Width - 130;
+
+            PocketPaintApplication.GetInstance().PaintingAreaView.addElementToPaintingAreCanvas(rectangleToDraw);
+        }
+
+        public void _Draw(object o)
         {
             var coordinate = (Point)o;
             var strokeThickness = PocketPaintApplication.GetInstance().PaintData.strokeThickness;
@@ -66,7 +105,7 @@ namespace Catrobat.Paint.WindowsPhone.Tool
             {
                 Fill = PocketPaintApplication.GetInstance().PaintData.colorSelected,
                 Stroke = PocketPaintApplication.GetInstance().PaintData.strokeColorSelected,
-                StrokeThickness = strokeThickness ,
+                StrokeThickness = strokeThickness,
                 StrokeLineJoin =
                     PocketPaintApplication.GetInstance().RectangleSelectionControl.StrokeLineJoinOfRectangleToDraw,
                 Data = myRectGeometry

@@ -141,7 +141,7 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
                             ((RectangleShapeBaseTool) PocketPaintApplication.GetInstance().ToolCurrent)
                                 .RectangleShapeBase != null);
                         ((RectangleShapeBaseTool) PocketPaintApplication.GetInstance().ToolCurrent)
-                            .RectangleShapeBase.SetHeightOfControl(currentValue);
+                            .RectangleShapeBase.SetHeightOfRectangleToDraw(currentValue);
                     }
                     else
                     {
@@ -153,12 +153,11 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
                 {
                     if (PocketPaintApplication.GetInstance().ToolCurrent is RectangleShapeBaseTool)
                     {
-                        // TODO: David Write a better SetWithofControl-Method
                         Debug.Assert(
                                      ((RectangleShapeBaseTool)PocketPaintApplication.GetInstance().ToolCurrent)
                                      .RectangleShapeBase != null);
                         ((RectangleShapeBaseTool)PocketPaintApplication.GetInstance().ToolCurrent)
-                            .RectangleShapeBase.SetWidthOfControl(currentValue);
+                            .RectangleShapeBase.SetWidthOfRectangleToDraw(currentValue);
                         ((RectangleShapeBaseTool)PocketPaintApplication.GetInstance().ToolCurrent)
                             .RectangleShapeBase.setCenterxAndCenteryCoordinates();
                     }

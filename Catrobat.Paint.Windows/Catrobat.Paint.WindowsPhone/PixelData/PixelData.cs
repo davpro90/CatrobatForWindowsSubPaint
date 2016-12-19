@@ -403,6 +403,15 @@ namespace Catrobat.Paint.WindowsPhone.PixelData
                 image.Source = wbCroppedBitmap;
                 image.Height = wbCroppedBitmap.PixelHeight;
                 image.Width = wbCroppedBitmap.PixelWidth;
+
+                var rectangleGeometry = new RectangleGeometry
+                {
+                    Rect = new Rect(0, 0, 200,
+                        200)
+                };
+                image.Clip = rectangleGeometry;
+                image.InvalidateArrange();
+                image.InvalidateMeasure();
                 PocketPaintApplication.GetInstance().PaintingAreaCanvas.Children.Clear();
                 PocketPaintApplication.GetInstance().PaintingAreaCanvas.Children.Add(image);
                 return true;

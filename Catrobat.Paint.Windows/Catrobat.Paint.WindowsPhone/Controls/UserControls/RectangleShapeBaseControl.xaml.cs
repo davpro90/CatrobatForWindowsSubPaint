@@ -17,16 +17,16 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
         private const double m_DefaultGridMainSize = 290.0;
         private const double m_DefaultRectangleForMovementSize = 200.0;
         private const double m_DefaultAreaToDrawSize = 160.0;
-        private const double m_MinWidthRectangleToDraw = 20;
-        private const double m_MinHeightRectangleToDraw = 20;
+        private const double m_MinWidthOfControl = 150;
+        private const double m_MinHeightOfControl = 150;
 
         private Point m_CenterPointRotation;
         private readonly TransformGroup m_TransformGridMain;
         private Point m_CornerPoint = new Point(0.0, 0.0);
         private Thickness m_currentGridMainMargin = new Thickness();
 
-        private float m_currentRotationAngle;
-        private float m_RotationAngle;
+        private double m_currentRotationAngle;
+        private double m_RotationAngle;
 
         public Grid AreaToDraw { get; private set; }
 
@@ -84,7 +84,7 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
             double centerX = m_center_x;
             double centerY = m_center_y;
             int corners_value = m_corners_value;
-            float currentRotationAngle = m_currentRotationAngle;
+            double currentRotationAngle = m_currentRotationAngle;
 
             ResetRectangleShapeBaseControl();
 
@@ -301,7 +301,7 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
         {
             Debug.Assert(orientation == Orientation.Left || orientation == Orientation.Right);
 
-            float rotation = m_RotationAngle;
+            double rotation = m_RotationAngle;
             while (rotation < 0)
             {
                 rotation += 360;
@@ -317,14 +317,14 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
                 deltaXCorrected = deltaXCorrected * -1;
             }
 
-            double newWidthRectangleToDraw = AreaToDrawGrid.Width + deltaXCorrected;
-            if (newWidthRectangleToDraw < m_MinWidthRectangleToDraw)
+            double newWidthOfControl = GridMainSelection.Width + deltaXCorrected;
+            if (newWidthOfControl < m_MinWidthOfControl)
             {
-                newWidthRectangleToDraw = m_MinWidthRectangleToDraw;
-                deltaXCorrected = m_MinWidthRectangleToDraw - AreaToDrawGrid.Width;
+                newWidthOfControl = m_MinWidthOfControl;
+                deltaXCorrected = m_MinWidthOfControl - AreaToDrawGrid.Width;
             }
 
-            SetWidthOfControl(newWidthRectangleToDraw);
+            SetWidthOfControl(newWidthOfControl);
 
             double deltaXLeft = 0;
             double deltaXRight = 0;
@@ -343,14 +343,14 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
                                             GridMainSelection.Margin.Right - deltaXRight,
                                             GridMainSelection.Margin.Bottom);
 
-            PocketPaintApplication.GetInstance().BarRecEllShape.setBtnWidthValue = newWidthRectangleToDraw;
+            PocketPaintApplication.GetInstance().BarRecEllShape.setBtnWidthValue = AreaToDraw.Width;
         }
 
         private void resizeHeight(double deltaX, double deltaY, Orientation orientation)
         {
             Debug.Assert(orientation == Orientation.Top || orientation == Orientation.Bottom);
 
-            float rotation = m_RotationAngle;
+            double rotation = m_RotationAngle;
             while (rotation < 0)
             {
                 rotation += 360;
@@ -365,14 +365,14 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
                 deltaYCorrected = deltaYCorrected * -1;
             }
 
-            double newHeightRectangleToDraw = AreaToDrawGrid.Height + deltaYCorrected;
-            if (newHeightRectangleToDraw < m_MinHeightRectangleToDraw)
+            double newHeightOfControl = GridMainSelection.Height + deltaYCorrected;
+            if (newHeightOfControl < m_MinHeightOfControl)
             {
-                newHeightRectangleToDraw = m_MinHeightRectangleToDraw;
-                deltaYCorrected = m_MinHeightRectangleToDraw - AreaToDrawGrid.Height;
+                newHeightOfControl = m_MinHeightOfControl;
+                deltaYCorrected = m_MinHeightOfControl - AreaToDrawGrid.Height;
             }
 
-            SetHeightOfControl(newHeightRectangleToDraw);
+            SetHeightOfControl(newHeightOfControl);
 
             double deltaYTop = 0;
             double deltaYBottom = 0;
@@ -390,7 +390,7 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
                                             GridMainSelection.Margin.Top - deltaYTop,
                                             GridMainSelection.Margin.Right,
                                             GridMainSelection.Margin.Bottom - deltaYBottom);
-            PocketPaintApplication.GetInstance().BarRecEllShape.setBtnHeightValue = newHeightRectangleToDraw;
+            PocketPaintApplication.GetInstance().BarRecEllShape.setBtnHeightValue = AreaToDraw.Height;
         }
 
         public Point GetCenterCoordinateOfGridMain()
@@ -508,7 +508,19 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
             }).FirstOrDefault();
         }
 
-        public void SetHeightOfControl(double newHeightRectangleToDraw)
+        public void SetHeightOfControl(double newHeight)
+        {
+            //TODO 1 is maybe too small?
+            if (newHeight >= 1)
+            {
+                double offset = newHeight - GridMainSelection.Height;
+                GridMainSelection.Height = newHeight;
+                MovementRectangle.Height = MovementRectangle.Height + offset;
+                AreaToDrawGrid.Height = AreaToDraw.Height + offset;
+            }
+        }
+
+        public void SetHeightOfRectangleToDraw(double newHeightRectangleToDraw)
         {
             //TODO 1 is maybe too small?
             if (newHeightRectangleToDraw >= 1)
@@ -519,9 +531,7 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
             }
         }
 
-        // Rename function or change the content of function
-        // functionname and content are disagreed
-        public double heightOfRectangleToDraw
+        private double heightOfRectangleToDraw
         {
             get
             {
@@ -533,19 +543,29 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
             }
         }
 
-        // Rename function or change the content of function
-        // functionname and content are disagreed
-        public void SetWidthOfControl(double newWidthRectangleToDraw)
+        public void SetWidthOfControl(double newWidthOfControl)
         {
             //TODO 1 is maybe too small?
-            if (newWidthRectangleToDraw >= 1)
+            if (newWidthOfControl >= 1)
             {
-                GridMainSelection.Width = newWidthRectangleToDraw + (GridMainSelection.Width - AreaToDrawGrid.Width);
-                MovementRectangle.Width = newWidthRectangleToDraw + (MovementRectangle.Width - AreaToDrawGrid.Width);
-                AreaToDrawGrid.Width = newWidthRectangleToDraw;
+                double offset = newWidthOfControl - GridMainSelection.Width;
+                GridMainSelection.Width = newWidthOfControl;
+                MovementRectangle.Width = MovementRectangle.Width + offset;
+                AreaToDrawGrid.Width = AreaToDraw.Width + offset;
             }
         }
-        public double widthOfRectangleToDraw
+
+        public void SetWidthOfRectangleToDraw(double newWidth)
+        {
+            //TODO 1 is maybe too small?
+            if (newWidth >= 1)
+            {
+                GridMainSelection.Width = newWidth + (GridMainSelection.Width - AreaToDrawGrid.Width);
+                MovementRectangle.Width = newWidth + (MovementRectangle.Width - AreaToDrawGrid.Width);
+                AreaToDrawGrid.Width = newWidth;
+            }
+        }
+        private double widthOfRectangleToDraw
         {
             get
             {
@@ -723,6 +743,16 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
         {
             Point result = new Point(p1.X + p2.X, p1.Y + p2.Y);
             return result;
+        }
+
+        public Grid GetMainGrid()
+        {
+            return GridMainSelection;
+        }
+
+        public double GetRotationAngleOfGridMain()
+        {
+            return m_currentRotationAngle;
         }
     }
 }
