@@ -6,53 +6,57 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    d:DesignHeight="80"
-    d:DesignWidth="80">
+    d:DesignHeight="200"
+    d:DesignWidth="200">
 
-    <Grid x:Name="GridMain">
+    <Grid x:Name="GridMain"
+          Height="200"
+          Width="200">
         <Grid.Resources>
             <ResourceDictionary>
-                <SolidColorBrush x:Name="rectColorEven" x:Key="rectColorEven" Color="DarkGray"/>
-                <SolidColorBrush x:Name="rectColorOdd" x:Key="rectColorOdd" Color="DimGray" />
+                <SolidColorBrush x:Name="rectColorEven" x:Key="rectColorEven" Color="#515151"/>
+                <SolidColorBrush x:Name="rectColorOdd" x:Key="rectColorOdd" Color="Black" />
+                <Rectangle x:Name="rectReferenceElementHorizonatal" Fill="{StaticResource rectColorOdd}" HorizontalAlignment="Right" Height="10" Margin="0,0,0,0" Stroke="{StaticResource rectColorOdd}" StrokeThickness="4" VerticalAlignment="Center" Width="20"/>
+                <Rectangle x:Name="rectReferenceElementVertical" Fill="{StaticResource rectColorOdd}" HorizontalAlignment="Right" Height="20" Margin="0,0,0,0" Stroke="{StaticResource rectColorOdd}" StrokeThickness="4" VerticalAlignment="Center" Width="10"/>
             </ResourceDictionary>
         </Grid.Resources>
         <Grid x:Name="GridRight">
-            <Rectangle x:Name="rectRight0" Fill="{StaticResource rectColorOdd}" HorizontalAlignment="Right" Height="5" Margin="0,0,0,0" Stroke="{StaticResource rectColorOdd}" StrokeThickness="4" VerticalAlignment="Center" Width="8"/>
-            <Rectangle x:Name="rectRight1" Fill="{StaticResource rectColorEven}" HorizontalAlignment="Right" Height="5" Margin="0,0,8,0" Stroke="{StaticResource rectColorEven}" StrokeThickness="4" VerticalAlignment="Center" Width="8"/>
-            <Rectangle x:Name="rectRight2" Fill="{StaticResource rectColorOdd}" HorizontalAlignment="Right" Height="5" Margin="0,0,16,0" Stroke="{StaticResource rectColorOdd}" StrokeThickness="4" VerticalAlignment="Center" Width="8"/>
-            <Rectangle x:Name="rectRight3" Fill="{StaticResource rectColorEven}" HorizontalAlignment="Right" Height="5" Margin="0,0,24,0" Stroke="{StaticResource rectColorEven}" StrokeThickness="4" VerticalAlignment="Center" Width="8"/>
+            <Rectangle x:Name="rectRight0" Fill="{StaticResource rectColorOdd}" HorizontalAlignment="Right" Height="{Binding ElementName=rectReferenceElementHorizonatal, Path=Height}" Margin="0,0,0,0" Stroke="{StaticResource rectColorOdd}" StrokeThickness="4" VerticalAlignment="Center" Width="{Binding ElementName=rectReferenceElementHorizonatal, Path=Width}"/>
+            <Rectangle x:Name="rectRight1" Fill="{StaticResource rectColorEven}" HorizontalAlignment="Right" Height="{Binding ElementName=rectReferenceElementHorizonatal, Path=Height}" Margin="0,0,20,0" Stroke="{StaticResource rectColorEven}" StrokeThickness="4" VerticalAlignment="Center" Width="{Binding ElementName=rectReferenceElementHorizonatal, Path=Width}"/>
+            <Rectangle x:Name="rectRight2" Fill="{StaticResource rectColorOdd}" HorizontalAlignment="Right" Height="{Binding ElementName=rectReferenceElementHorizonatal, Path=Height}" Margin="0,0,40,0" Stroke="{StaticResource rectColorOdd}" StrokeThickness="4" VerticalAlignment="Center" Width="{Binding ElementName=rectReferenceElementHorizonatal, Path=Width}"/>
+            <Rectangle x:Name="rectRight3" Fill="{StaticResource rectColorEven}" HorizontalAlignment="Right" Height="{Binding ElementName=rectReferenceElementHorizonatal, Path=Height}" Margin="0,0,60,0" Stroke="{StaticResource rectColorEven}" StrokeThickness="4" VerticalAlignment="Center" Width="{Binding ElementName=rectReferenceElementHorizonatal, Path=Width}"/>
         </Grid>
         
         <Grid x:Name="GridTop">
-            <Rectangle x:Name="rectTop0" Fill="{StaticResource rectColorOdd}" HorizontalAlignment="Center" Height="8" Margin="0,0,0,0" Stroke="{StaticResource rectColorOdd}" StrokeThickness="4" VerticalAlignment="Top" Width="5"/>
-            <Rectangle x:Name="rectTop1" Fill="{StaticResource rectColorEven}" HorizontalAlignment="Center" Height="8" Margin="0,8,0,0" Stroke="{StaticResource rectColorEven}" StrokeThickness="4" VerticalAlignment="Top" Width="5"/>
-            <Rectangle x:Name="rectTop2" Fill="{StaticResource rectColorOdd}" HorizontalAlignment="Center" Height="8" Margin="0,16,0,0" Stroke="{StaticResource rectColorOdd}" StrokeThickness="4" VerticalAlignment="Top" Width="5"/>
-            <Rectangle x:Name="rectTop3"  Fill="{StaticResource rectColorEven}" HorizontalAlignment="Center" Height="8" Margin="0,24,0,0" Stroke="{StaticResource rectColorEven}" StrokeThickness="4" VerticalAlignment="Top" Width="5"/>
+            <Rectangle x:Name="rectTop0" Fill="{StaticResource rectColorOdd}" HorizontalAlignment="Center" Height="{Binding ElementName=rectReferenceElementVertical, Path=Height}" Margin="0,0,0,0" Stroke="{StaticResource rectColorOdd}" StrokeThickness="4" VerticalAlignment="Top" Width="{Binding ElementName=rectReferenceElementVertical, Path=Width}"/>
+            <Rectangle x:Name="rectTop1" Fill="{StaticResource rectColorEven}" HorizontalAlignment="Center" Height="{Binding ElementName=rectReferenceElementVertical, Path=Height}" Margin="0,20,0,0" Stroke="{StaticResource rectColorEven}" StrokeThickness="4" VerticalAlignment="Top" Width="{Binding ElementName=rectReferenceElementVertical, Path=Width}"/>
+            <Rectangle x:Name="rectTop2" Fill="{StaticResource rectColorOdd}" HorizontalAlignment="Center" Height="{Binding ElementName=rectReferenceElementVertical, Path=Height}" Margin="0,40,0,0" Stroke="{StaticResource rectColorOdd}" StrokeThickness="4" VerticalAlignment="Top" Width="{Binding ElementName=rectReferenceElementVertical, Path=Width}"/>
+            <Rectangle x:Name="rectTop3" Fill="{StaticResource rectColorEven}" HorizontalAlignment="Center" Height="{Binding ElementName=rectReferenceElementVertical, Path=Height}" Margin="0,60,0,0" Stroke="{StaticResource rectColorEven}" StrokeThickness="4" VerticalAlignment="Top" Width="{Binding ElementName=rectReferenceElementVertical, Path=Width}"/>
         </Grid>
         
         <Grid x:Name="GridBottom">
-            <Rectangle x:Name="rectBottom0" Fill="{StaticResource rectColorOdd}" HorizontalAlignment="Center" Height="8" Margin="0,0,0,0" Stroke="{StaticResource rectColorOdd}" StrokeThickness="4" VerticalAlignment="Bottom" Width="5"/>
-            <Rectangle x:Name="rectBottom1" Fill="{StaticResource rectColorEven}" HorizontalAlignment="Center" Height="8" Margin="0,0,0,8" Stroke="{StaticResource rectColorEven}" StrokeThickness="4" VerticalAlignment="Bottom" Width="5"/>
-            <Rectangle x:Name="rectBottom2" Fill="{StaticResource rectColorOdd}" HorizontalAlignment="Center" Height="8" Margin="0,0,0,16" Stroke="{StaticResource rectColorOdd}" StrokeThickness="4" VerticalAlignment="Bottom" Width="5"/>
-            <Rectangle x:Name="rectBottom3" Fill="{StaticResource rectColorEven}" HorizontalAlignment="Center" Height="8" Margin="0,0,0,24" Stroke="{StaticResource rectColorEven}" StrokeThickness="4" VerticalAlignment="Bottom" Width="5"/>
+            <Rectangle x:Name="rectBottom0" Fill="{StaticResource rectColorOdd}" HorizontalAlignment="Center" Height="{Binding ElementName=rectReferenceElementVertical, Path=Height}" Margin="0,0,0,0" Stroke="{StaticResource rectColorOdd}" StrokeThickness="4" VerticalAlignment="Bottom" Width="{Binding ElementName=rectReferenceElementVertical, Path=Width}"/>
+            <Rectangle x:Name="rectBottom1" Fill="{StaticResource rectColorEven}" HorizontalAlignment="Center" Height="{Binding ElementName=rectReferenceElementVertical, Path=Height}" Margin="0,0,0,20" Stroke="{StaticResource rectColorEven}" StrokeThickness="4" VerticalAlignment="Bottom" Width="{Binding ElementName=rectReferenceElementVertical, Path=Width}"/>
+            <Rectangle x:Name="rectBottom2" Fill="{StaticResource rectColorOdd}" HorizontalAlignment="Center" Height="{Binding ElementName=rectReferenceElementVertical, Path=Height}" Margin="0,0,0,40" Stroke="{StaticResource rectColorOdd}" StrokeThickness="4" VerticalAlignment="Bottom" Width="{Binding ElementName=rectReferenceElementVertical, Path=Width}"/>
+            <Rectangle x:Name="rectBottom3" Fill="{StaticResource rectColorEven}" HorizontalAlignment="Center" Height="{Binding ElementName=rectReferenceElementVertical, Path=Height}" Margin="0,0,0,60" Stroke="{StaticResource rectColorEven}" StrokeThickness="4" VerticalAlignment="Bottom" Width="{Binding ElementName=rectReferenceElementVertical, Path=Width}"/>
         </Grid>
         
         <Grid x:Name="GridLeft">
-            <Rectangle x:Name="rectLeft0" Fill="{StaticResource rectColorOdd}" HorizontalAlignment="Left" Height="5" Margin="0,0,0,0" Stroke="{StaticResource rectColorOdd}" StrokeThickness="4" VerticalAlignment="Center" Width="8"/>
-            <Rectangle x:Name="rectLeft1" Fill="{StaticResource rectColorEven}" HorizontalAlignment="Left" Height="5" Margin="8,0,0,0" Stroke="{StaticResource rectColorEven}" StrokeThickness="4" VerticalAlignment="Center" Width="8"/>
-            <Rectangle x:Name="rectLeft2" Fill="{StaticResource rectColorOdd}" HorizontalAlignment="Left" Height="5" Margin="16,0,0,0" Stroke="{StaticResource rectColorOdd}" StrokeThickness="4" VerticalAlignment="Center" Width="8"/>
-            <Rectangle x:Name="rectLeft3" Fill="{StaticResource rectColorEven}" HorizontalAlignment="Left" Height="5" Margin="24,0,0,0" Stroke="{StaticResource rectColorEven}" StrokeThickness="4" VerticalAlignment="Center" Width="8"/>
+            <Rectangle x:Name="rectLeft0" Fill="{StaticResource rectColorOdd}" HorizontalAlignment="Left" Height="{Binding ElementName=rectReferenceElementHorizonatal, Path=Height}" Margin="0,0,0,0" Stroke="{StaticResource rectColorOdd}" StrokeThickness="4" VerticalAlignment="Center" Width="{Binding ElementName=rectReferenceElementHorizonatal, Path=Width}"/>
+            <Rectangle x:Name="rectLeft1" Fill="{StaticResource rectColorEven}" HorizontalAlignment="Left" Height="{Binding ElementName=rectReferenceElementHorizonatal, Path=Height}" Margin="20,0,0,0" Stroke="{StaticResource rectColorEven}" StrokeThickness="4" VerticalAlignment="Center" Width="{Binding ElementName=rectReferenceElementHorizonatal, Path=Width}"/>
+            <Rectangle x:Name="rectLeft2" Fill="{StaticResource rectColorOdd}" HorizontalAlignment="Left" Height="{Binding ElementName=rectReferenceElementHorizonatal, Path=Height}" Margin="40,0,0,0" Stroke="{StaticResource rectColorOdd}" StrokeThickness="4" VerticalAlignment="Center" Width="{Binding ElementName=rectReferenceElementHorizonatal, Path=Width}"/>
+            <Rectangle x:Name="rectLeft3" Fill="{StaticResource rectColorEven}" HorizontalAlignment="Left" Height="{Binding ElementName=rectReferenceElementHorizonatal, Path=Height}" Margin="60,0,0,0" Stroke="{StaticResource rectColorEven}" StrokeThickness="4" VerticalAlignment="Center" Width="{Binding ElementName=rectReferenceElementHorizonatal, Path=Width}"/>
         </Grid>
         
         <Grid x:Name="GridEllipse" Visibility="Visible">
-            <Ellipse x:Name="ellInner" Fill="Transparent" HorizontalAlignment="Center" Height="13" Margin="0,0,0,0" Stroke="DarkGray" StrokeThickness="3" VerticalAlignment="Center" Width="13"/>
-            <Ellipse x:Name="ellOuter" Fill="Transparent" HorizontalAlignment="Center" Height="20" Margin="0,0,0,0" Stroke="{StaticResource rectColorOdd}" StrokeThickness="4" VerticalAlignment="Center" Width="20"/>
+            <Ellipse x:Name="ellInner" Fill="Transparent" HorizontalAlignment="Center" Height="35" Margin="0,0,0,0" Stroke="DarkGray" StrokeThickness="6" VerticalAlignment="Center" Width="35"/>
+            <Ellipse x:Name="ellOuter" Fill="Transparent" HorizontalAlignment="Center" Height="40" Margin="0,0,0,0" Stroke="{StaticResource rectColorOdd}" StrokeThickness="4" VerticalAlignment="Center" Width="40"/>
             <Ellipse x:Name="ellDrawingPoint" Fill="Black" HorizontalAlignment="Center" Height="8" Margin="0,0,0,0"  StrokeThickness="0" VerticalAlignment="Center" Visibility="Collapsed" Width="8"/>
         </Grid>
         
         <Grid x:Name="GridRectangle" Visibility="Collapsed">
-            <Rectangle x:Name="rectInner" Fill="Transparent" HorizontalAlignment="Center" Height="13" Margin="0,0,0,0" Stroke="DarkGray" StrokeThickness="3" VerticalAlignment="Center" Width="13"/>
-            <Rectangle x:Name="rectOuter" Fill="Transparent" HorizontalAlignment="Center" Height="20" Margin="0,0,0,0" Stroke="{StaticResource rectColorOdd}" StrokeThickness="4" VerticalAlignment="Center" Width="20"/>
+            <Rectangle x:Name="rectInner" Fill="Transparent" HorizontalAlignment="Center" Height="35" Margin="0,0,0,0" Stroke="DarkGray" StrokeThickness="3" VerticalAlignment="Center" Width="35"/>
+            <Rectangle x:Name="rectOuter" Fill="Transparent" HorizontalAlignment="Center" Height="40" Margin="0,0,0,0" Stroke="{StaticResource rectColorOdd}" StrokeThickness="4" VerticalAlignment="Center" Width="40"/>
             <Rectangle x:Name="rectDrawingPoint" Fill="Black" HorizontalAlignment="Center" Height="8" Margin="0,0,0,0"  StrokeThickness="0" VerticalAlignment="Center" Visibility="Collapsed" Width="8"/>
         </Grid>
         

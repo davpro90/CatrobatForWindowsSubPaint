@@ -14,68 +14,70 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
     {
         private static bool _isDrawing;
         private double standardDrawingPoint = 8.0;
-        private double standardSizeInner = 13.0;
-        private double standardSizeOuter = 20.0;
+        private double standardSizeInner;
+        private double standardSizeOuter;
 
         public CursorControl()
         {
             this.InitializeComponent();
             _isDrawing = false;
-
+            standardSizeInner = rectInner.Height;
+            standardSizeOuter = rectOuter.Height;
             if(PocketPaintApplication.GetInstance().cursorControl == null)
             {
                 PocketPaintApplication.GetInstance().cursorControl = this;
             }
+            //setCursorControlLayout();
         }
 
-        private void setCursorControlLayout()
-        {
-            double width_multiplicator = PocketPaintApplication.GetInstance().size_width_multiplication;
-            double height_multiplicator = PocketPaintApplication.GetInstance().size_width_multiplication;
+        //private void setCursorControlLayout()
+        //{
+        //    double width_multiplicator = PocketPaintApplication.GetInstance().size_width_multiplication;
+        //    double height_multiplicator = PocketPaintApplication.GetInstance().size_width_multiplication;
 
-            standardDrawingPoint *= width_multiplicator;
-            standardSizeInner *= width_multiplicator;
-            standardSizeOuter *= width_multiplicator;
+        //    standardDrawingPoint *= width_multiplicator;
+        //    standardSizeInner *= width_multiplicator;
+        //    standardSizeOuter *= width_multiplicator;
 
-            GridMain.Width *= width_multiplicator;
-            GridMain.Height *= height_multiplicator;
+        //    GridMain.Width *= width_multiplicator;
+        //    GridMain.Height *= height_multiplicator;
 
-            foreach (Object obj in GridRight.Children.Concat(
-                                        GridLeft.Children.Concat(
-                                            GridBottom.Children.Concat(
-                                                GridTop.Children.Concat(
-                                                    GridEllipse.Children.Concat(
-                                                        GridRectangle.Children.Concat(
-                                                            GridTriangle.Children)))))))
-            {
-                if (obj.GetType() == typeof(Ellipse))
-                {
-                    Ellipse currentEllipse = (Ellipse)obj;
-                    currentEllipse.Height *= height_multiplicator;
-                    currentEllipse.Width *= width_multiplicator;
-                    currentEllipse.StrokeThickness *= height_multiplicator;
+        //    foreach (Object obj in GridRight.Children.Concat(
+        //                                GridLeft.Children.Concat(
+        //                                    GridBottom.Children.Concat(
+        //                                        GridTop.Children.Concat(
+        //                                            GridEllipse.Children.Concat(
+        //                                                GridRectangle.Children.Concat(
+        //                                                    GridTriangle.Children)))))))
+        //    {
+        //        if (obj.GetType() == typeof(Ellipse))
+        //        {
+        //            Ellipse currentEllipse = (Ellipse)obj;
+        //            currentEllipse.Height *= height_multiplicator;
+        //            currentEllipse.Width *= width_multiplicator;
+        //            currentEllipse.StrokeThickness *= height_multiplicator;
 
-                    currentEllipse.Margin = new Thickness(
-                                            currentEllipse.Margin.Left * width_multiplicator,
-                                            currentEllipse.Margin.Top * height_multiplicator,
-                                            currentEllipse.Margin.Right * width_multiplicator,
-                                            currentEllipse.Margin.Bottom * height_multiplicator);
-                }
-                else if (obj.GetType() == typeof(Rectangle))
-                {
-                    Rectangle currentRectangle = (Rectangle)obj;
-                    currentRectangle.Height *= height_multiplicator;
-                    currentRectangle.Width *= width_multiplicator;
-                    currentRectangle.StrokeThickness *= height_multiplicator;
+        //            currentEllipse.Margin = new Thickness(
+        //                                    currentEllipse.Margin.Left * width_multiplicator,
+        //                                    currentEllipse.Margin.Top * height_multiplicator,
+        //                                    currentEllipse.Margin.Right * width_multiplicator,
+        //                                    currentEllipse.Margin.Bottom * height_multiplicator);
+        //        }
+        //        else if (obj.GetType() == typeof(Rectangle))
+        //        {
+        //            Rectangle currentRectangle = (Rectangle)obj;
+        //            currentRectangle.Height *= height_multiplicator;
+        //            currentRectangle.Width *= width_multiplicator;
+        //            currentRectangle.StrokeThickness *= height_multiplicator;
 
-                    currentRectangle.Margin = new Thickness(
-                                            currentRectangle.Margin.Left * width_multiplicator,
-                                            currentRectangle.Margin.Top * height_multiplicator,
-                                            currentRectangle.Margin.Right * width_multiplicator,
-                                            currentRectangle.Margin.Bottom * height_multiplicator);
-                }
-            }
-        }
+        //            currentRectangle.Margin = new Thickness(
+        //                                    currentRectangle.Margin.Left * width_multiplicator,
+        //                                    currentRectangle.Margin.Top * height_multiplicator,
+        //                                    currentRectangle.Margin.Right * width_multiplicator,
+        //                                    currentRectangle.Margin.Bottom * height_multiplicator);
+        //        }
+        //    }
+        //}
 
         public void changeCursorType(PenLineCap currentPenLineCap)
         {
@@ -109,9 +111,6 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
             double newSizeInner = standardSizeInner + newCurrentThickness;
             double newSizeOuter = standardSizeOuter + newCurrentThickness;
 
-            GridMain.Height += newCurrentThickness;
-            GridMain.Width += newCurrentThickness;
-
             ellDrawingPoint.Height = currentThickness;
             ellDrawingPoint.Width = currentThickness;
             ellInner.Height = newSizeInner;
@@ -121,10 +120,10 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
 
             rectDrawingPoint.Height = currentThickness;
             rectDrawingPoint.Width = currentThickness;
-            rectInner.Height = newSizeInner;
-            rectInner.Width = newSizeInner;
-            rectOuter.Height = newSizeOuter;
-            rectOuter.Width = newSizeOuter;
+            rectInner.Height = newSizeInner + 35;
+            rectInner.Width = newSizeInner + 35;
+            rectOuter.Height = newSizeOuter + 40;
+            rectOuter.Width = newSizeOuter + 40;
 
             double drawingPointTri = currentThickness / Math.Sqrt(2.0);
             double sizeTriIn = newSizeInner / Math.Sqrt(2.0);
@@ -138,24 +137,24 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
             triangelOuter.Width = sizeTriOut;
 
             rectBottom0.Margin = new Thickness(0.0, 0.0, 0.0, 0.0 - ((double)newCurrentThickness) / 2.0);
-            rectBottom1.Margin = new Thickness(0.0, 0.0, 0.0, 8.0 - ((double)newCurrentThickness) / 2.0);
-            rectBottom2.Margin = new Thickness(0.0, 0.0, 0.0, 16.0 - ((double)newCurrentThickness) / 2.0);
-            rectBottom3.Margin = new Thickness(0.0, 0.0, 0.0, 24.0 - ((double)newCurrentThickness) / 2.0);
+            rectBottom1.Margin = new Thickness(0.0, 0.0, 0.0, 20.0 - ((double)newCurrentThickness) / 2.0);
+            rectBottom2.Margin = new Thickness(0.0, 0.0, 0.0, 40.0 - ((double)newCurrentThickness) / 2.0);
+            rectBottom3.Margin = new Thickness(0.0, 0.0, 0.0, 60.0 - ((double)newCurrentThickness) / 2.0);
 
             rectLeft0.Margin = new Thickness(0.0 - ((double)newCurrentThickness) / 2.0, 0, 0, 0);
-            rectLeft1.Margin = new Thickness(8.0 - ((double)newCurrentThickness) / 2.0, 0, 0, 0);
-            rectLeft2.Margin = new Thickness(16.0 - ((double)newCurrentThickness) / 2.0, 0 ,0 ,0);
-            rectLeft3.Margin = new Thickness(24.0 - ((double)newCurrentThickness) / 2.0, 0, 0, 0);
+            rectLeft1.Margin = new Thickness(20.0 - ((double)newCurrentThickness) / 2.0, 0, 0, 0);
+            rectLeft2.Margin = new Thickness(40.0 - ((double)newCurrentThickness) / 2.0, 0, 0, 0);
+            rectLeft3.Margin = new Thickness(60.0 - ((double)newCurrentThickness) / 2.0, 0, 0, 0);
 
             rectRight0.Margin = new Thickness(0.0, 0.0, 0.0 - ((double)newCurrentThickness) / 2.0, 0.0);
-            rectRight1.Margin = new Thickness(0.0, 0.0, 8.0 - ((double)newCurrentThickness) / 2.0, 0.0);
-            rectRight2.Margin = new Thickness(0.0, 0.0, 16.0 - ((double)newCurrentThickness) / 2.0, 0.0);
-            rectRight3.Margin = new Thickness(0.0, 0.0, 24.0 - ((double)newCurrentThickness) / 2.0, 0.0);
+            rectRight1.Margin = new Thickness(0.0, 0.0, 20.0 - ((double)newCurrentThickness) / 2.0, 0.0);
+            rectRight2.Margin = new Thickness(0.0, 0.0, 40.0 - ((double)newCurrentThickness) / 2.0, 0.0);
+            rectRight3.Margin = new Thickness(0.0, 0.0, 60.0 - ((double)newCurrentThickness) / 2.0, 0.0);
 
             rectTop0.Margin = new Thickness(0.0, 0.0 - ((double)newCurrentThickness) / 2.0, 0.0, 0.0);
-            rectTop1.Margin = new Thickness(0.0, 8.0 - ((double)newCurrentThickness) / 2.0, 0.0, 0.0);
-            rectTop2.Margin = new Thickness(0.0, 16.0 - ((double)newCurrentThickness) / 2.0, 0.0, 0.0);
-            rectTop3.Margin = new Thickness(0.0, 24.0 - ((double)newCurrentThickness) / 2.0, 0.0, 0.0);
+            rectTop1.Margin = new Thickness(0.0, 20.0 - ((double)newCurrentThickness) / 2.0, 0.0, 0.0);
+            rectTop2.Margin = new Thickness(0.0, 40.0 - ((double)newCurrentThickness) / 2.0, 0.0, 0.0);
+            rectTop3.Margin = new Thickness(0.0, 60.0 - ((double)newCurrentThickness) / 2.0, 0.0, 0.0);
         }
 
         public bool isDrawingActivated()

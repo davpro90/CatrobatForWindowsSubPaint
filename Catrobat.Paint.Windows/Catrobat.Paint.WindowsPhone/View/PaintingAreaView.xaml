@@ -38,13 +38,11 @@
                             ManipulationMode="TranslateX, TranslateY, Scale"/>
 
                 <!-- CursorControl -->
-                <Grid x:Name="GridCursor" Height="80" HorizontalAlignment="Center" VerticalAlignment="Center" 
-                      Visibility="Collapsed" Width="80">
-                    <userControls:CursorControl x:Name="ClCursor" Height="80" HorizontalAlignment="Center" 
+
+                <userControls:CursorControl x:Name="ClCursor" HorizontalAlignment="Center" 
                                                 IsHitTestVisible="False" PointerPressed="CursorControl_PointerPressed" 
-                                                Margin="0,0,0,0" VerticalAlignment="Center" Width="80">
-                    </userControls:CursorControl>
-                </Grid>
+                                                Margin="0,0,0,0" VerticalAlignment="Center">
+                </userControls:CursorControl>
 
                 <!-- ImageSelectionControl -->
                 <Grid x:Name="GridImportImageSelectionControl" Height="230" Visibility="Collapsed" Width="230">

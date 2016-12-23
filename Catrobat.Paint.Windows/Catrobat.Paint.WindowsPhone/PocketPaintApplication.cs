@@ -39,7 +39,7 @@ namespace Catrobat.Paint.WindowsPhone
         #region GridElements
         public Grid GridCropControl { get; set; }
 
-        public Grid GridCursor { get; set; }
+        public CursorControl CursorControl { get; set; }
 
         public Grid GridEllipseSelectionControl { get; set; }
 
