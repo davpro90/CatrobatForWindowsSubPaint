@@ -38,10 +38,13 @@
                             ManipulationMode="TranslateX, TranslateY, Scale"/>
 
                 <!-- CursorControl -->
-
-                <userControls:CursorControl x:Name="ClCursor" HorizontalAlignment="Center" 
-                                                IsHitTestVisible="False" PointerPressed="CursorControl_PointerPressed" 
-                                                Margin="0,0,0,0" VerticalAlignment="Center">
+                <userControls:CursorControl x:Name="ClCursor"
+                                            HorizontalAlignment="Center" 
+                                            IsHitTestVisible="False"
+                                            PointerPressed="CursorControl_PointerPressed" 
+                                            Margin="0,0,0,0"
+                                            VerticalAlignment="Center"
+                                            Visibility="Collapsed">
                 </userControls:CursorControl>
 
                 <!-- ImageSelectionControl -->
