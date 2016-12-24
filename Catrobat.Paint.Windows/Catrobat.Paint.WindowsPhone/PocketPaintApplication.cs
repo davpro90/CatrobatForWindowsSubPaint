@@ -257,11 +257,11 @@ namespace Catrobat.Paint.WindowsPhone
                     ToolCurrent = new LineTool();
                     break;
                 case ToolType.Zoom:
-                    ToolCurrent = new ZoomTool();
+                    ToolCurrent = new MoveZoomTool(ToolType.Zoom);
                     break;
                 case ToolType.Move:                
                     ToolWhileMoveTool = ToolCurrent;
-                    ToolCurrent = new ZoomTool();
+                    ToolCurrent = new MoveZoomTool(ToolType.Move);
                     break;
                 case ToolType.Pipette:
                     ToolCurrent = new PipetteTool();

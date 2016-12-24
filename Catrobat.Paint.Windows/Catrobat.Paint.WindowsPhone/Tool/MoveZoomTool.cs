@@ -16,36 +16,44 @@ namespace Catrobat.Paint.WindowsPhone.Tool
         private Point startScale;
         private TransformGroup _tempTransforms;
 
-        public MoveZoomTool(bool zoom = true)
+        public void setGridWorkingSpaceRenderTransform()
         {
-            if(zoom)
-                ToolType = ToolType.Zoom;
-            else 
-                ToolType = ToolType.Move;
-            ResetCanvas();
             if (PocketPaintApplication.GetInstance().GridWorkingSpace.RenderTransform.GetType() == typeof(TransformGroup))
             {
                 _transforms = PocketPaintApplication.GetInstance().GridWorkingSpace.RenderTransform as TransformGroup;
             }
+
             if (_transforms == null)
             {
                 PocketPaintApplication.GetInstance().GridWorkingSpace.RenderTransform = _transforms = new TransformGroup();
             }
+        }
+
+        public MoveZoomTool(ToolType toolType=ToolType.Zoom)
+        {
+            ToolType = toolType; 
+
+            setGridWorkingSpaceRenderTransform();
+            ResetCanvas();
+         
             _tempTransforms = new TransformGroup();
             DISPLAY_WIDTH_HALF = PocketPaintApplication.GetInstance().GridWorkingSpace.ActualWidth / 2.0;
             DISPLAY_HEIGHT_HALF = PocketPaintApplication.GetInstance().GridWorkingSpace.ActualHeight / 2.0;
+
             startScale.X = _transforms.Value.M11;
             startScale.Y = _transforms.Value.M22;       
         }
 
         public override void HandleDown(object arg)
         {
+            System.Diagnostics.Debug.WriteLine(ToolType.Zoom.ToString() + "Handle-Down-Method");
             startScale.X = ((Point)arg).X;
             startScale.Y = ((Point)arg).Y;
         }
 
         public override void HandleMove(object arg)
         {
+            System.Diagnostics.Debug.WriteLine(ToolType.Zoom.ToString() + "Handle-Move-Method");
             if (arg is ScaleTransform)
             {
                 var toScaleValue = (ScaleTransform)arg;
@@ -85,66 +93,20 @@ namespace Catrobat.Paint.WindowsPhone.Tool
 
             setResetButtonInPaintingAreaView(true);
         }
-
-        /*public async Task HandleMoveTask(object arg)
-        {
-            if (arg is ScaleTransform)
-            {
-                var toScaleValue = (ScaleTransform)arg;
-
-                bool isScaleAllowed = checkIfScalingAllowed(toScaleValue);
-                if (isScaleAllowed)
-                {
-                    var fixedaspection = 0.0;
-                    fixedaspection = toScaleValue.ScaleX > toScaleValue.ScaleY ? toScaleValue.ScaleX : toScaleValue.ScaleY;
-                    toScaleValue.ScaleX = fixedaspection;
-                    toScaleValue.ScaleY = fixedaspection;
-                    if (PocketPaintApplication.GetInstance().isZoomButtonClicked)
-                    {
-                        toScaleValue.CenterX = DISPLAY_WIDTH_HALF;
-                        toScaleValue.CenterY = DISPLAY_HEIGHT_HALF;
-                    }
-                    else
-                    {
-                        toScaleValue.CenterX = startScale.X;
-                        toScaleValue.CenterY = startScale.Y;
-                    }
-                    _transforms.Children.Add(toScaleValue);
-                    _tempTransforms.Children.Add(toScaleValue);
-                }
-            }
-            else if (arg is TranslateTransform)
-            {
-                var move = (TranslateTransform)arg;
-                _transforms.Children.Add(move);
-                _tempTransforms.Children.Add(move);
-            }
-            else
-            {
-                System.Diagnostics.Debug.WriteLine("MoveZoomTool Should Not Reach this!");
-                //return;
-            }
-
-            AppBarButton appBarButtonReset = PocketPaintApplication.GetInstance().PaintingAreaView.getAppBarResetButton();
-            if (appBarButtonReset != null)
-            {
-                appBarButtonReset.IsEnabled = true;
-            }
-        }*/
-
+        
         public override void HandleUp(object arg)
         {
-            CommandManager.GetInstance().CommitCommand(new ZoomCommand(_tempTransforms));
+            System.Diagnostics.Debug.WriteLine(ToolType.Zoom.ToString() + "Handle-Up-Method");
         }
 
         public override void Draw(object o)
         {
-
+            System.Diagnostics.Debug.WriteLine(ToolType.Zoom.ToString() + "Draw-Method");
         }
 
         public void setResetButtonInPaintingAreaView(bool resetButtuonValue)
         {
-            AppBarButton appBarButtonReset = PocketPaintApplication.GetInstance().PaintingAreaView.getAppBarResetButton();
+            AppBarButton appBarButtonReset = PocketPaintApplication.GetInstance().PaintingAreaView.GetAppBarResetButton();
             if (appBarButtonReset != null)
             {
                 appBarButtonReset.IsEnabled = resetButtuonValue;
@@ -155,10 +117,7 @@ namespace Catrobat.Paint.WindowsPhone.Tool
         {
             _transforms.Children.Clear();
             setResetButtonInPaintingAreaView(false);
-            PocketPaintApplication.GetInstance().PaintingAreaView.alignPositionOfGridWorkingSpace(null);
-            // TODO: If you reset the working-space then it should be generated a removecommand
-            // TODO: Write a ResetMoveZoomCommand
-            CommandManager.GetInstance().CommitCommand(new ZoomCommand(new TransformGroup()));
+            PocketPaintApplication.GetInstance().PaintingAreaView.AlignPositionOfGridWorkingSpace(null);
         }
 
         public bool checkIfScalingAllowed(ScaleTransform toScaleValue)
