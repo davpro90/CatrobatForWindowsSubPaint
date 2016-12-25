@@ -23,13 +23,13 @@ namespace Catrobat.Paint.WindowsPhone.Tool
         {
             ToolType = ToolType.Cursor;
             _base_draw_tool = new BaseDrawTool();
-            if (PocketPaintApplication.GetInstance().GridCursor.RenderTransform != null)
+            if (PocketPaintApplication.GetInstance().CursorControl.RenderTransform != null)
             {
-                _transforms = PocketPaintApplication.GetInstance().GridCursor.RenderTransform as TransformGroup;
+                _transforms = PocketPaintApplication.GetInstance().CursorControl.RenderTransform as TransformGroup;
             }
             if (_transforms == null)
             {
-                PocketPaintApplication.GetInstance().GridCursor.RenderTransform = _transforms = new TransformGroup();
+                PocketPaintApplication.GetInstance().CursorControl.RenderTransform = _transforms = new TransformGroup();
             }
         }
 
@@ -61,7 +61,7 @@ namespace Catrobat.Paint.WindowsPhone.Tool
 
             if (PocketPaintApplication.GetInstance() != null)
             {
-                AppBarButton appBarButtonReset = PocketPaintApplication.GetInstance().PaintingAreaView.getAppBarResetButton();
+                AppBarButton appBarButtonReset = PocketPaintApplication.GetInstance().PaintingAreaView.GetAppBarResetButton();
                 if (appBarButtonReset != null)
                 {
                     if (!appBarButtonReset.IsEnabled)
@@ -84,7 +84,7 @@ namespace Catrobat.Paint.WindowsPhone.Tool
         public void app_btnResetCursor_Click(object sender, RoutedEventArgs e)
         {
             ((AppBarButton)sender).IsEnabled = false;
-            PocketPaintApplication.GetInstance().GridCursor.RenderTransform = _transforms = new TransformGroup();
+            PocketPaintApplication.GetInstance().CursorControl.RenderTransform = _transforms = new TransformGroup();
         }
 
         public override void Draw(object o)
@@ -105,7 +105,7 @@ namespace Catrobat.Paint.WindowsPhone.Tool
 
         public override void ResetUsedElements()
         {
-            PocketPaintApplication.GetInstance().GridCursor.RenderTransform = _transforms = new TransformGroup();
+            PocketPaintApplication.GetInstance().CursorControl.RenderTransform = _transforms = new TransformGroup();
             PocketPaintApplication.GetInstance().cursorControl.setCursorLook(false);
         }
     }

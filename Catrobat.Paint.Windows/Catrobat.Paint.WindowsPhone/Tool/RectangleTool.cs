@@ -55,7 +55,8 @@ namespace Catrobat.Paint.WindowsPhone.Tool
             rectangleToDraw.Height = GridMainSelection.Height - 130;
             rectangleToDraw.Width = GridMainSelection.Width - 130;
 
-            PocketPaintApplication.GetInstance().PaintingAreaView.addElementToPaintingAreCanvas(rectangleToDraw);
+            PocketPaintApplication.GetInstance().PaintingAreaView.AddElementToPaintingAreCanvas(rectangleToDraw);
+            CommandManager.GetInstance().CommitCommand(new RectangleCommand(m_path));
         }
 
         public void _Draw(object o)
@@ -110,7 +111,7 @@ namespace Catrobat.Paint.WindowsPhone.Tool
                     PocketPaintApplication.GetInstance().RectangleSelectionControl.StrokeLineJoinOfRectangleToDraw,
                 Data = myRectGeometry
             };
-            PocketPaintApplication.GetInstance().PaintingAreaView.addElementToPaintingAreCanvas(m_path);
+            PocketPaintApplication.GetInstance().PaintingAreaView.AddElementToPaintingAreCanvas(m_path);
 
             var rectangleGeometry = new RectangleGeometry
             {

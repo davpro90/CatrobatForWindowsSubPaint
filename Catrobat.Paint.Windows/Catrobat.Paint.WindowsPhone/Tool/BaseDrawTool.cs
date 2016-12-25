@@ -75,7 +75,7 @@ namespace Catrobat.Paint.WindowsPhone.Tool
             }
             else
             {
-                PocketPaintApplication.GetInstance().PaintingAreaView.addElementToPaintingAreCanvas(_path);
+                PocketPaintApplication.GetInstance().PaintingAreaView.AddElementToPaintingAreCanvas(_path);
             }
 
             _path.Data = _path_geometry;
@@ -134,7 +134,7 @@ namespace Catrobat.Paint.WindowsPhone.Tool
                 _pixel_data_eraser = new PixelData.PixelData();
                 _pixel_data = new PixelData.PixelData();
 
-                await _pixel_data_eraser.preparePaintingAreaCanvasForEraser();
+                await _pixel_data_eraser.PreparePaintingAreaCanvasForEraser();
                 await _pixel_data.preparePaintingAreaCanvasPixel();
                 
                 var points = _pixel_data_eraser.GetWhitePixels();
@@ -151,7 +151,7 @@ namespace Catrobat.Paint.WindowsPhone.Tool
             _pixel_data_eraser = new PixelData.PixelData();
             _pixel_data = new PixelData.PixelData();
 
-            await _pixel_data_eraser.preparePaintingAreaCanvasForEraser();
+            await _pixel_data_eraser.PreparePaintingAreaCanvasForEraser();
             await _pixel_data.preparePaintingAreaCanvasPixel();
 
             var points = _pixel_data_eraser.GetWhitePixels();

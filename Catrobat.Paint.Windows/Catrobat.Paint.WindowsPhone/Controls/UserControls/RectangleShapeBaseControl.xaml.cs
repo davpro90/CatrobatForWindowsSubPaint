@@ -508,7 +508,7 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
             var paintingAreaView = PocketPaintApplication.GetInstance().PaintingAreaView;
             if (paintingAreaView != null)
             {
-                var appBarButtonReset = paintingAreaView.getAppBarResetButton();
+                var appBarButtonReset = paintingAreaView.GetAppBarResetButton();
                 if (appBarButtonReset != null)
                 {
                     appBarButtonReset.IsEnabled = isActivated;
@@ -540,7 +540,7 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
             //TODO 1 is maybe too small?
             if (newHeight >= 1)
             {
-                double offset = newHeight - GridMainSelection.Height;
+                double offset = newHeight;
                 GridMainSelection.Height = newHeight;
                 MovementRectangle.Height = MovementRectangle.Height + offset;
                 AreaToDrawGrid.Height = AreaToDraw.Height + offset;
