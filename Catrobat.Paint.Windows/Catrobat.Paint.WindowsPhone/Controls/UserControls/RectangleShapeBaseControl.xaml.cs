@@ -154,7 +154,8 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
 
         private void TopCenterGrid_OnManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
         {
-            setCenterxAndCenteryCoordinates((GridMainSelection.Width / 2.0) * -1, (GridMainSelection.Height / 2.0) * -1);
+            setCenterxAndCenteryCoordinates((GridMainSelection.Width / 2.0 + GetXAndYValueFromLastTranslateTransform().X) * -1,
+                (GridMainSelection.Height / 2.0 + GetXAndYValueFromLastTranslateTransform().Y) * -1);
             if (m_corners_value != 0)
             {
                 TodoNeuerName(m_center_x , m_center_y, new Point(1, 1));
@@ -216,9 +217,15 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
             resizeWidth(e.Delta.Translation.X, e.Delta.Translation.Y, Orientation.Right);
         }
 
+        private Point GetXAndYValueFromLastTranslateTransform()
+        {
+            TranslateTransform currentTranslateTransfrom = GetLastTranslateTransformation();
+            return new Point(currentTranslateTransfrom.X, currentTranslateTransfrom.Y);
+        }
+
         private void BottomCenterGrid_OnManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
         {
-            setCenterxAndCenteryCoordinates(GridMainSelection.Width / 2.0, GridMainSelection.Height / 2.0);
+            setCenterxAndCenteryCoordinates(GridMainSelection.Width / 2.0 + GetXAndYValueFromLastTranslateTransform().X, GridMainSelection.Height / 2.0 + GetXAndYValueFromLastTranslateTransform().Y);
             if (m_corners_value != 2)
             {
                 TodoNeuerName(m_center_x, m_center_y, new Point(0, 0));
@@ -255,6 +262,7 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
             
             var xVal = e.Delta.Translation.X;
             var yVal = e.Delta.Translation.Y;
+            setCenterxAndCenteryCoordinates(m_center_x + xVal, m_center_y + yVal);
             var translateTransform = new TranslateTransform();
             var lastTranslateTransform = GetLastTranslateTransformation();
             if (lastTranslateTransform != null)
@@ -535,12 +543,17 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
         }
 
         public TranslateTransform GetLastTranslateTransformation()
+        {
+            TranslateTransform currentTranslateTransform = m_TransformGridMain.Children.OfType<TranslateTransform>().Select(t => new TranslateTransform
             {
-            return m_TransformGridMain.Children.OfType<TranslateTransform>().Select(t => new TranslateTransform
-                {
-                X = t.X, 
+                X = t.X,
                 Y = t.Y
             }).FirstOrDefault();
+            if(currentTranslateTransform == null)
+            {
+                currentTranslateTransform = new TranslateTransform();
+            }
+            return currentTranslateTransform;
         }
 
         public RotateTransform GetLastRotateTransformation()
