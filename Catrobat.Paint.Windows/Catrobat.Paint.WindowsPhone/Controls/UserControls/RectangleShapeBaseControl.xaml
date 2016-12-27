@@ -21,60 +21,7 @@
         VerticalAlignment="Top"
         Width="290"
         >
-        <userControls:RotationArrowsShape
-            x:Name="rotationArrowTopRight"
-                HorizontalAlignment="Right"
-                Margin="0,0,0,0"
-                ManipulationDelta="RotationTopRight_OnManipulationDelta"
-                ManipulationMode="TranslateX, TranslateY"
-                VerticalAlignment="Top">
-            <userControls:RotationArrowsShape.RenderTransform>
-                <RotateTransform Angle="90" CenterX="25" CenterY="25" />
-            </userControls:RotationArrowsShape.RenderTransform>
-        </userControls:RotationArrowsShape>
 
-        <userControls:RotationArrowsShape
-            x:Name="rotationArrowTopLeft"
-                HorizontalAlignment="Left"
-                Margin="0,0,0,0"
-                ManipulationDelta="RotationTopLeft_OnManipulationDelta"
-                ManipulationMode="TranslateX, TranslateY"
-                VerticalAlignment="Top"
-        />
-
-        <userControls:RotationArrowsShape
-            x:Name="rotationArrowBottomLeft"
-            HorizontalAlignment="Left"
-            ManipulationDelta="RotationBottomLeft_OnManipulationDelta"
-            ManipulationMode="TranslateX, TranslateY"
-            Margin="0,0,0,0"
-            VerticalAlignment="Bottom"
-            >
-            <userControls:RotationArrowsShape.RenderTransform>
-                <CompositeTransform
-                    CenterX="25"
-                    CenterY="25"
-                    Rotation="270"
-                    />
-            </userControls:RotationArrowsShape.RenderTransform>
-        </userControls:RotationArrowsShape>
-
-        <userControls:RotationArrowsShape
-                x:Name="rotationArrowBottomRight"
-                ManipulationDelta="RotationBottomRight_OnManipulationDelta"
-                ManipulationMode="TranslateX, TranslateY"
-                Margin="0,0,0,0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                >
-            <userControls:RotationArrowsShape.RenderTransform>
-                <CompositeTransform
-                        CenterX="25"
-                        CenterY="25"
-                        Rotation="180"
-                        />
-            </userControls:RotationArrowsShape.RenderTransform>
-        </userControls:RotationArrowsShape>
 
         <Grid
             x:Name="AreaToDrawGrid"
@@ -294,6 +241,111 @@
                 </Ellipse.Clip>
             </Ellipse>
         </Grid>
+
+        <Grid
+            Width="75"
+            Height="50"
+            Margin="-45,30,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Background="Transparent"
+            ManipulationDelta="RotationTopLeft_OnManipulationDelta"
+            ManipulationMode="TranslateX, TranslateY"
+            />
+
+        <Grid
+            Width="75"
+            Height="50"
+            Margin="-45,210,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Background="Transparent"
+            ManipulationDelta="RotationBottomLeft_OnManipulationDelta"
+            ManipulationMode="TranslateX, TranslateY"
+            />
+
+        <Grid
+            x:Name="TopLeftRotationGrid"
+            Width="120"
+            Height="50"
+            Margin="-45,-20,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Background="Transparent"
+            ManipulationDelta="RotationTopLeft_OnManipulationDelta"
+            ManipulationMode="TranslateX, TranslateY"
+            >
+            <userControls:RotationArrowsShape
+                Margin="45,20,0,-20"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                />
+        </Grid>
+
+        <Grid
+            x:Name="BottomLeftRotationGrid"
+            Width="120"
+            Height="50"
+            Margin="-45,260,0,-20"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Background="Transparent"
+            ManipulationDelta="RotationBottomLeft_OnManipulationDelta"
+            ManipulationMode="TranslateX, TranslateY"
+            >
+
+            <userControls:RotationArrowsShape
+            x:Name="rotationArrowBottomLeft"
+            Margin="45,0,0,-30.833"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
+            d:LayoutRounding="Auto"
+            UseLayoutRounding="False"
+            >
+                <userControls:RotationArrowsShape.RenderTransform>
+                    <CompositeTransform
+                    Rotation="-90"
+                    />
+                </userControls:RotationArrowsShape.RenderTransform>
+            </userControls:RotationArrowsShape>
+        </Grid>
+
+        <Grid
+            Width="75"
+            Height="50"
+            Margin="260,210,-45,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Background="Transparent"
+            ManipulationDelta="RotationBottomRight_OnManipulationDelta"
+            ManipulationMode="TranslateX, TranslateY"
+            />
+
+        <Grid
+            x:Name="BottomRightRotationGrid"
+            Width="120"
+            Height="50"
+            Margin="215,260,-45,-20"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Background="Transparent"
+            ManipulationDelta="RotationBottomRight_OnManipulationDelta"
+            ManipulationMode="TranslateX, TranslateY"
+            >
+
+            <userControls:RotationArrowsShape
+            x:Name="rotationArrowBottomRight"
+            Margin="0,0,-6,-30"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            >
+                <userControls:RotationArrowsShape.RenderTransform>
+                    <CompositeTransform
+                    Rotation="180"
+                    />
+                </userControls:RotationArrowsShape.RenderTransform>
+            </userControls:RotationArrowsShape>
+        </Grid>
         <Grid
             x:Name="BottomRightGrid"
             Background="Transparent"
@@ -381,6 +433,44 @@
                         />
                 </Ellipse.Clip>
             </Ellipse>
+        </Grid>
+
+        <Grid
+            Width="75"
+            Height="50"
+            Margin="0,30,-45,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Background="Transparent"
+            ManipulationDelta="RotationTopRight_OnManipulationDelta"
+            ManipulationMode="TranslateX, TranslateY"
+            />
+
+        <Grid
+            x:Name="TopRightRotationGrid"
+            Width="120"
+            Height="50"
+            Margin="0,-20,-45,0"
+            HorizontalAlignment="right"
+            VerticalAlignment="Top"
+            Background="Transparent"
+            ManipulationDelta="RotationTopRight_OnManipulationDelta"
+            ManipulationMode="TranslateX, TranslateY"
+            >
+
+            <userControls:RotationArrowsShape
+                Margin="75,0,-5,-20"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                d:LayoutRounding="Auto"
+                UseLayoutRounding="False"
+                >
+                <userControls:RotationArrowsShape.RenderTransform>
+                    <CompositeTransform
+                        Rotation="90"
+                        />
+                </userControls:RotationArrowsShape.RenderTransform>
+            </userControls:RotationArrowsShape>
         </Grid>
     </Grid>
 </UserControl>

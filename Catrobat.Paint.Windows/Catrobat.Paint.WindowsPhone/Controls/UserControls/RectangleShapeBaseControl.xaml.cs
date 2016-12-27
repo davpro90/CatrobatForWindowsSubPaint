@@ -747,27 +747,27 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
         {
             if (orientation == Orientation.TopRight)
             {
-                m_CornerPoint = GetCenterCoordinateOfFrameworkElement(rotationArrowTopRight);
-                m_CornerPoint.Y -= rotationArrowTopRight.Width / 2;
-                m_CornerPoint.X -= rotationArrowTopRight.Height / 2;
+                m_CornerPoint = GetCenterCoordinateOfFrameworkElement(TopRightRotationGrid);
+                m_CornerPoint.Y -= TopRightRotationGrid.Width / 2;
+                m_CornerPoint.X -= TopRightRotationGrid.Height / 2;
             }
             else if (orientation == Orientation.TopLeft)
             {
-                m_CornerPoint = GetCenterCoordinateOfFrameworkElement(rotationArrowTopLeft);
-                m_CornerPoint.Y -= rotationArrowTopLeft.Width / 2;
-                m_CornerPoint.X -= rotationArrowTopLeft.Height / 2;
+                m_CornerPoint = GetCenterCoordinateOfFrameworkElement(TopLeftRotationGrid);
+                m_CornerPoint.Y -= TopLeftRotationGrid.Width / 2;
+                m_CornerPoint.X -= TopLeftRotationGrid.Height / 2;
 
             } else if (orientation == Orientation.BottomLeft)
             {
-                m_CornerPoint = GetCenterCoordinateOfFrameworkElement(rotationArrowBottomLeft);
-                m_CornerPoint.Y -= rotationArrowBottomLeft.Width / 2;
-                m_CornerPoint.X -= rotationArrowBottomLeft.Height / 2;
+                m_CornerPoint = GetCenterCoordinateOfFrameworkElement(BottomLeftRotationGrid);
+                m_CornerPoint.Y -= BottomLeftRotationGrid.Width / 2;
+                m_CornerPoint.X -= BottomLeftRotationGrid.Height / 2;
 
             } else if (orientation == Orientation.BottomRight)
             {
-                m_CornerPoint = GetCenterCoordinateOfFrameworkElement(rotationArrowBottomRight);
-                m_CornerPoint.Y -= rotationArrowBottomRight.Width / 2;
-                m_CornerPoint.X -= rotationArrowBottomRight.Height / 2;
+                m_CornerPoint = GetCenterCoordinateOfFrameworkElement(BottomRightRotationGrid);
+                m_CornerPoint.Y -= BottomRightRotationGrid.Width / 2;
+                m_CornerPoint.X -= BottomRightRotationGrid.Height / 2;
             }
             
             Point rotated_point;
