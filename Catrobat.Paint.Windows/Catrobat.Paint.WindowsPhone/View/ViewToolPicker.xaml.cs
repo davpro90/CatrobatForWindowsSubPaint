@@ -99,8 +99,9 @@ namespace Catrobat.Paint.WindowsPhone.View
                             }
                             else
                             {
-                                pocketPaintApplication.SwitchTool(ToolType.Brush);
-                                pocketPaintApplication.isBrushTool = true;
+                            pocketPaintApplication.SwitchTool(ToolType.Brush);
+                            pocketPaintApplication.AppbarTop.BtnSelectedColorVisible(true);
+                            pocketPaintApplication.isBrushTool = true;
                             }
                             pocketPaintApplication.AppbarTop.BtnSelectedColorVisible(true);
                             break;
@@ -179,8 +180,6 @@ namespace Catrobat.Paint.WindowsPhone.View
                             enableEdgeTypes = true;
                             pocketPaintApplication.BarRecEllShape.setIsEnabledOfEdgeType(enableEdgeTypes, enableEdgeTypes, enableEdgeTypes);
                             pocketPaintApplication.BarRecEllShape.setForgroundOfLabelEdgeType(Colors.White);
-                            pocketPaintApplication.ToolCurrent.ResetDrawingSpace();
-                            pocketPaintApplication.StampControl.Visibility = Visibility.Visible;
                             pocketPaintApplication.AppbarTop.BtnSelectedColorVisible(true);
                             PocketPaintApplication.GetInstance().StampControl.SetStampSelection();
                             break;

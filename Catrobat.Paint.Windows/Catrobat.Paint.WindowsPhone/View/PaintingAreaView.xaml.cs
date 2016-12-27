@@ -477,7 +477,7 @@ namespace Catrobat.Paint.WindowsPhone.View
         {
             appBarTop.Visibility = visibility;
             if (BottomAppBar != null)
-                BottomAppBar.Visibility = visibility;
+            BottomAppBar.Visibility = visibility;
         }
 
         /// <summary>
@@ -728,14 +728,14 @@ namespace Catrobat.Paint.WindowsPhone.View
             CommandBar cmdBar = (CommandBar)BottomAppBar;
             if (cmdBar != null)
             {
-                for (int appBarButtonIndex = 0; appBarButtonIndex < cmdBar.PrimaryCommands.Count; appBarButtonIndex++)
-                {
+            for (int appBarButtonIndex = 0; appBarButtonIndex < cmdBar.PrimaryCommands.Count; appBarButtonIndex++)
+            {
                     AppBarButton currentAppBarButton = ((AppBarButton) (cmdBar.PrimaryCommands[appBarButtonIndex]));
-                    if (currentAppBarButton.Name == "appBtnStampCopy")
-                    {
-                        return true;
-                    }
+                if (currentAppBarButton.Name == "appBtnStampCopy")
+                {
+                    return true;
                 }
+            }
             }
             return false;
         }
@@ -745,22 +745,22 @@ namespace Catrobat.Paint.WindowsPhone.View
             CommandBar cmdBar = (CommandBar)BottomAppBar;
             if (cmdBar != null)
             {
-                for (int appBarButtonIndex = 0; appBarButtonIndex < cmdBar.PrimaryCommands.Count; appBarButtonIndex++)
-                {
+            for (int appBarButtonIndex = 0; appBarButtonIndex < cmdBar.PrimaryCommands.Count; appBarButtonIndex++)
+            {
                     AppBarButton currentAppBarButton = ((AppBarButton) (cmdBar.PrimaryCommands[appBarButtonIndex]));
-                    if (currentAppBarButton.Name == "appBtnStampCopy")
-                    {
-                        currentAppBarButton.Visibility = Visibility.Visible;
-                    }
-                    else if (currentAppBarButton.Name == "appBtnStampPaste")
-                    {
-                        currentAppBarButton.Visibility = Visibility.Collapsed;
-                    }
-                    else if (currentAppBarButton.Name == "appBtnStampReset")
-                    {
-                        currentAppBarButton.IsEnabled = false;
-                    }
+                if (currentAppBarButton.Name == "appBtnStampCopy")
+                {
+                    currentAppBarButton.Visibility = Visibility.Visible;
                 }
+                else if (currentAppBarButton.Name == "appBtnStampPaste")
+                {
+                    currentAppBarButton.Visibility = Visibility.Collapsed;
+                }
+                else if (currentAppBarButton.Name == "appBtnStampReset")
+                {
+                    currentAppBarButton.IsEnabled = false;
+                }
+            }
             }
 
             ((StampTool)PocketPaintApplication.GetInstance().ToolCurrent).StampClear();
@@ -773,23 +773,23 @@ namespace Catrobat.Paint.WindowsPhone.View
 
             if (cmdBar != null)
             {
-                for (int appBarButtonIndex = 0; appBarButtonIndex < cmdBar.PrimaryCommands.Count; appBarButtonIndex++)
-                {
+            for (int appBarButtonIndex = 0; appBarButtonIndex < cmdBar.PrimaryCommands.Count; appBarButtonIndex++)
+            {
                     AppBarButton currentAppBarButton = ((AppBarButton) (cmdBar.PrimaryCommands[appBarButtonIndex]));
-                    if (currentAppBarButton.Name == "appBtnStampCopy")
-                    {
-                        currentAppBarButton.Visibility = Visibility.Collapsed;
-                    }
-                    else if (currentAppBarButton.Name == "appBtnStampPaste")
-                    {
-                        currentAppBarButton.Visibility = Visibility.Visible;
-                    }
-                    else if (currentAppBarButton.Name == "appBtnStampReset")
-                    {
-                        currentAppBarButton.IsEnabled = true;
-                    }
+                if (currentAppBarButton.Name == "appBtnStampCopy")
+                {
+                    currentAppBarButton.Visibility = Visibility.Collapsed;
+                }
+                else if (currentAppBarButton.Name == "appBtnStampPaste")
+                {
+                    currentAppBarButton.Visibility = Visibility.Visible;
+                }
+                else if (currentAppBarButton.Name == "appBtnStampReset")
+                {
+                    currentAppBarButton.IsEnabled = true;
                 }
             }
+        }
         }
 
         void app_btnMoreInfo_Click(object sender, RoutedEventArgs e)
@@ -815,10 +815,10 @@ namespace Catrobat.Paint.WindowsPhone.View
 
             if (cmdBar != null)
             {
-                for (int i = 0; i < cmdBar.PrimaryCommands.Count; i++)
-                {
+            for (int i = 0; i < cmdBar.PrimaryCommands.Count; i++)
+            {
                     if (((AppBarButton) cmdBar.PrimaryCommands[i]).Name == "appButtonResetZoom")
-                    {
+                {
                         ((AppBarButton) cmdBar.PrimaryCommands[i]).IsEnabled = isEnabled;
                     }
                 }
@@ -944,15 +944,15 @@ namespace Catrobat.Paint.WindowsPhone.View
 
             if (commandBar != null)
             {
-                for (int i = 0; i < commandBar.PrimaryCommands.Count; i++)
-                {
+            for (int i = 0; i < commandBar.PrimaryCommands.Count; i++)
+            {
                     appBarButtonReset = (AppBarButton) (commandBar.PrimaryCommands[i]);
-                    string appBarResetName = ("appButtonReset" + toolName);
-                    if (appBarButtonReset.Name == appBarResetName)
-                    {
-                        break;
-                    }
+                string appBarResetName = ("appButtonReset" + toolName);
+                if (appBarButtonReset.Name == appBarResetName)
+                {
+                    break;
                 }
+            }
             }
             return appBarButtonReset;
         }
@@ -964,15 +964,15 @@ namespace Catrobat.Paint.WindowsPhone.View
 
             if (commandBar != null)
             {
-                for (int i = 0; i < commandBar.PrimaryCommands.Count; i++)
-                {
+            for (int i = 0; i < commandBar.PrimaryCommands.Count; i++)
+            {
                     appBarButtonReset = (AppBarButton) (commandBar.PrimaryCommands[i]);
-                    string appBarResetName = ("appButtonReset");
-                    if (appBarButtonReset.Name.Contains(appBarResetName))
-                    {
-                        break;
-                    }
+                string appBarResetName = ("appButtonReset");
+                if (appBarButtonReset.Name.Contains(appBarResetName))
+                {
+                    break;
                 }
+            }
             }
             return appBarButtonReset;
         }
@@ -1555,15 +1555,15 @@ namespace Catrobat.Paint.WindowsPhone.View
 
             if (cmdBar != null)
             {
-                for (int i = 0; i < cmdBar.SecondaryCommands.Count; i++)
-                {
+            for (int i = 0; i < cmdBar.SecondaryCommands.Count; i++)
+            {
                     if (((AppBarButton) cmdBar.SecondaryCommands[i]).Name == appBarButtonName)
-                    {
+                {
                         ((AppBarButton) cmdBar.SecondaryCommands[i]).IsEnabled = isEnabled;
-                        break;
-                    }
+                    break;
                 }
             }
+        }
         }
 
         public void  AddElementToPaintingAreCanvas(Path path)
@@ -1701,16 +1701,16 @@ namespace Catrobat.Paint.WindowsPhone.View
 
             if (commandBar != null)
             {
-                for (int i = 0; i < commandBar.PrimaryCommands.Count; i++)
-                {
+            for (int i = 0; i < commandBar.PrimaryCommands.Count; i++)
+            {
                     var curr = (AppBarButton) (commandBar.PrimaryCommands[i]);
 
-                    if (curr.Name == appBarName)
-                    {
-                        appBarButton = curr;
-                        break;
-                    }
+                if (curr.Name == appBarName)
+                {
+                    appBarButton = curr;
+                    break;
                 }
+            }
             }
             return appBarButton;
         }

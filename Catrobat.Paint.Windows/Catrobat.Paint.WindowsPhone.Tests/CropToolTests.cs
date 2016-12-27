@@ -908,7 +908,7 @@ namespace Catrobat.Paint.WindowsPhone.Tests
             await ExecuteOnUiThread(() =>
             {
                 _sut.ResetAppBarButtonRectangleSelectionControl(true);
-                AppBarButton appBarButtonReset = PocketPaintApplication.GetInstance().PaintingAreaView.getAppBarResetButton();
+                AppBarButton appBarButtonReset = PocketPaintApplication.GetInstance().PaintingAreaView.GetAppBarResetButton();
 
                 Assert.AreEqual(appBarButtonReset.IsEnabled, true);
                 
@@ -923,9 +923,8 @@ namespace Catrobat.Paint.WindowsPhone.Tests
             await ExecuteOnUiThread(() =>
             {
                 _sut.ResetAppBarButtonRectangleSelectionControl(false);
-                AppBarButton appBarButtonReset = PocketPaintApplication.GetInstance().PaintingAreaView.getAppBarResetButton();
-
-                Assert.AreEqual(appBarButtonReset.IsEnabled, false);
+                AppBarButton appBarButtonReset = PocketPaintApplication.GetInstance().PaintingAreaView.GetAppBarResetButton();
+                                Assert.AreEqual(appBarButtonReset.IsEnabled, false);
                 
             });
         }

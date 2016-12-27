@@ -14,110 +14,112 @@
 
     <Grid
         x:Name="GridMainSelection"
-        Height="290"
-        HorizontalAlignment="Left"
-        Margin="0,0,0,0"
-        RenderTransformOrigin="0,0"
-        VerticalAlignment="Top"
         Width="290"
+        Height="290"
+        Margin="0,0,0,0"
+        HorizontalAlignment="Left"
+        VerticalAlignment="Top"
         >
-
 
         <Grid
             x:Name="AreaToDrawGrid"
-            Height="160"
-            HorizontalAlignment="Center"
-            Margin="65"
-            VerticalAlignment="Center"
             Width="160"
+            Height="160"
+            Margin="65"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
             >
 
             <Rectangle
                 x:Name="AreaToDrawRectangle"
-                Fill="Black"
-                Height="{Binding ElementName=AreaToDrawGrid,
-                                 Path=Height}"
-                HorizontalAlignment="Center"
-                Stroke="Gray"
-                StrokeLineJoin="Miter"
-                StrokeThickness="3"
-                VerticalAlignment="Center"
-                Visibility="Collapsed"
-                Width="{Binding ElementName=AreaToDrawGrid, Path=Width}"
-                />
-
-            <Rectangle
-                x:Name="AreaToDrawStamp"
                 Width="{Binding ElementName=AreaToDrawGrid,
                                 Path=Width}"
                 Height="{Binding ElementName=AreaToDrawGrid,
                                  Path=Height}"
-                Margin="0,0,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Fill="Transparent"
-                Stroke="CornflowerBlue"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Fill="Black"
+                Stroke="Gray"
                 StrokeLineJoin="Miter"
                 StrokeThickness="3"
-                Visibility="Visible"
+                Visibility="Collapsed"
                 />
 
-            <Image
-                x:Name="imgStampedImage"
-                Margin="3,3,3,3"
-                Stretch="Fill"
-                />
+            <Border
+                x:Name="StampBorder"
+                BorderThickness="3"
+                BorderBrush="CornflowerBlue"
+                Margin="-3">
+                <Rectangle
+                    x:Name="AreaToDrawStamp"
+                    Width="{Binding ElementName=AreaToDrawGrid,
+                                    Path=Width}"
+                    Height="{Binding ElementName=AreaToDrawGrid,
+                                     Path=Height}"
+                    Margin="0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Visibility="Visible"
+                    >
+                    <Rectangle.Fill>
+                        <ImageBrush
+                            x:Name="imgBrush"
+                        />
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Border>
 
             <Ellipse
                 x:Name="AreaToDrawEllipse"
-                Fill="Black"
+                Width="{Binding ElementName=AreaToDrawGrid,
+                                Path=Width}"
                 Height="{Binding ElementName=AreaToDrawGrid,
                                  Path=Height}"
                 HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Fill="Black"
                 Stroke="Gray"
                 StrokeLineJoin="Miter"
                 StrokeThickness="3"
-                VerticalAlignment="Center"
                 Visibility="Collapsed"
-                Width="{Binding ElementName=AreaToDrawGrid,
-                                Path=Width}"
                 />
+
         </Grid>
 
         <Rectangle
             x:Name="MovementRectangle"
-            Fill="#01FFFFFF"
+            Width="200"
             Height="200"
             Margin="45"
+            Fill="#01FFFFFF"
             ManipulationDelta="rectEllipseForMovement_ManipulationDelta"
             ManipulationMode="TranslateX, TranslateY"
             Stroke="LightSkyBlue"
             StrokeThickness="5"
             Tapped="rectEllipseForMovement_Tapped"
-            Width="200"
             />
 
         <Grid
             x:Name="BottomCenterGrid"
+            Width="100"
             Height="65"
             HorizontalAlignment="Center"
+            VerticalAlignment="Bottom"
             ManipulationDelta="BottomCenterGrid_OnManipulationDelta"
             ManipulationMode="TranslateX, TranslateY"
-            VerticalAlignment="Bottom"
-            Width="100"
             >
             <Ellipse
+                Width="30"
+                Height="30"
+                Margin="0,0,0,35"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
                 d:LayoutRounding="Auto"
                 Fill="LightSkyBlue"
-                Height="30"
-                HorizontalAlignment="Center"
-                Margin="0,0,0,35"
                 RenderTransformOrigin="0.5,0.5"
                 Stretch="Fill"
                 Stroke="Transparent"
                 UseLayoutRounding="False"
-                VerticalAlignment="Bottom"
-                Width="30"
                 >
                 <Ellipse.Clip>
                     <RectangleGeometry
@@ -129,25 +131,25 @@
 
         <Grid
             x:Name="CenterLeftGrid"
+            Width="65"
             Height="100"
+            Margin="0,95"
             HorizontalAlignment="Left"
+            VerticalAlignment="Center"
             ManipulationDelta="CenterLeftGrid_OnManipulationDelta"
             ManipulationMode="TranslateX, TranslateY"
-            Margin="0,95"
-            VerticalAlignment="Center"
-            Width="65"
             >
             <Ellipse
-                Fill="LightSkyBlue"
+                Width="30"
                 Height="30"
-                HorizontalAlignment="Left"
                 Margin="35,0,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Fill="LightSkyBlue"
                 RenderTransformOrigin="0.5,0.5"
                 Stretch="Fill"
                 Stroke="Transparent"
                 UseLayoutRounding="False"
-                VerticalAlignment="Center"
-                Width="30"
                 >
                 <Ellipse.RenderTransform>
                     <CompositeTransform
@@ -164,41 +166,41 @@
 
         <Grid
             x:Name="BottomLeftGrid"
-            Background="Transparent"
+            Width="60"
             Height="35"
+            Margin="30,0,0,30"
             HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
+            Background="Transparent"
             ManipulationDelta="BottomLeftGrid_OnManipulationDelta"
             ManipulationMode="TranslateX, TranslateY"
-            Margin="30,0,0,30"
-            VerticalAlignment="Bottom"
-            Width="60"
             >
             <userControls:clippedEllipse
-                HorizontalAlignment="Left"
-                Margin="5,0,0,-5"
-                RenderTransformOrigin="0.5,0.5"
-                VerticalAlignment="Bottom"
                 Width="40"
+                Margin="5,0,0,-5"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                RenderTransformOrigin="0.5,0.5"
                 />
         </Grid>
 
         <Grid
             x:Name="TopLeftGrid"
-            Background="Transparent"
+            Width="60"
             Height="35"
+            Margin="30,30,0,0"
             HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Background="Transparent"
             ManipulationDelta="TopLeftGrid_OnManipulationDelta"
             ManipulationMode="TranslateX, TranslateY"
-            Margin="30,30,0,0"
-            VerticalAlignment="Top"
-            Width="60"
             >
             <userControls:clippedEllipse
-                HorizontalAlignment="Left"
-                Margin="-5,5,0,0"
-                RenderTransformOrigin="0.5,0.5"
-                VerticalAlignment="Top"
                 Width="40"
+                Margin="-5,5,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                RenderTransformOrigin="0.5,0.5"
                 >
 
                 <userControls:clippedEllipse.RenderTransform>
@@ -211,23 +213,23 @@
 
         <Grid
             x:Name="TopCenterGrid"
+            Width="100"
             Height="65"
             HorizontalAlignment="Center"
+            VerticalAlignment="Top"
             ManipulationDelta="TopCenterGrid_OnManipulationDelta"
             ManipulationMode="TranslateY"
-            VerticalAlignment="Top"
-            Width="100"
             >
             <Ellipse
-                Fill="LightSkyBlue"
+                Width="30"
                 Height="30"
-                HorizontalAlignment="Center"
                 Margin="0,35,0,0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Fill="LightSkyBlue"
                 RenderTransformOrigin="0.5,0.5"
                 Stretch="Fill"
                 Stroke="Transparent"
-                VerticalAlignment="Top"
-                Width="30"
                 >
                 <Ellipse.RenderTransform>
                     <CompositeTransform
@@ -256,9 +258,9 @@
         <Grid
             Width="75"
             Height="50"
-            Margin="-45,210,0,0"
+            Margin="-45,0,0,30"
             HorizontalAlignment="Left"
-            VerticalAlignment="Top"
+            VerticalAlignment="Bottom"
             Background="Transparent"
             ManipulationDelta="RotationBottomLeft_OnManipulationDelta"
             ManipulationMode="TranslateX, TranslateY"
@@ -286,9 +288,9 @@
             x:Name="BottomLeftRotationGrid"
             Width="120"
             Height="50"
-            Margin="-45,260,0,-20"
+            Margin="-45,0,0,-20"
             HorizontalAlignment="Left"
-            VerticalAlignment="Top"
+            VerticalAlignment="Bottom"
             Background="Transparent"
             ManipulationDelta="RotationBottomLeft_OnManipulationDelta"
             ManipulationMode="TranslateX, TranslateY"
@@ -313,9 +315,9 @@
         <Grid
             Width="75"
             Height="50"
-            Margin="260,210,-45,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
+            Margin="0,0,-45,30"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
             Background="Transparent"
             ManipulationDelta="RotationBottomRight_OnManipulationDelta"
             ManipulationMode="TranslateX, TranslateY"
@@ -325,9 +327,9 @@
             x:Name="BottomRightRotationGrid"
             Width="120"
             Height="50"
-            Margin="215,260,-45,-20"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
+            Margin="0,0,-45,-20"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
             Background="Transparent"
             ManipulationDelta="RotationBottomRight_OnManipulationDelta"
             ManipulationMode="TranslateX, TranslateY"
@@ -346,25 +348,29 @@
                 </userControls:RotationArrowsShape.RenderTransform>
             </userControls:RotationArrowsShape>
         </Grid>
+
+
+
+
         <Grid
             x:Name="BottomRightGrid"
-            Background="Transparent"
+            Width="60"
             Height="35"
+            Margin="0,0,30,30"
             HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Background="Transparent"
             ManipulationDelta="BottomRightGrid_OnManipulationDelta"
             ManipulationMode="TranslateX, TranslateY"
-            Margin="0,0,30,30"
-            VerticalAlignment="Bottom"
-            Width="60"
             >
             <userControls:clippedEllipse
-                d:LayoutRounding="Auto"
-                HorizontalAlignment="Right"
+                Width="40"
                 Margin="0,-10,-5,5"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                d:LayoutRounding="Auto"
                 RenderTransformOrigin="0.5,0.5"
                 UseLayoutRounding="False"
-                VerticalAlignment="Bottom"
-                Width="40"
                 >
                 <userControls:clippedEllipse.RenderTransform>
                     <CompositeTransform
@@ -376,21 +382,21 @@
 
         <Grid
             x:Name="TopRightGrid"
-            Background="Transparent"
+            Width="60"
             Height="35"
+            Margin="0,30,30,0"
             HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Background="Transparent"
             ManipulationDelta="TopRightGrid_OnManipulationDelta"
             ManipulationMode="TranslateX, TranslateY"
-            Margin="0,30,30,0"
-            VerticalAlignment="Top"
-            Width="60"
             >
             <userControls:clippedEllipse
-                HorizontalAlignment="Right"
-                Margin="0,-5,5,0"
-                RenderTransformOrigin="0.5,0.5"
-                VerticalAlignment="Top"
                 Width="40"
+                Margin="0,-5,5,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                RenderTransformOrigin="0.5,0.5"
                 >
                 <userControls:clippedEllipse.RenderTransform>
                     <CompositeTransform
@@ -402,25 +408,25 @@
 
         <Grid
             x:Name="CenterRightGrid"
+            Width="65"
             Height="100"
             HorizontalAlignment="Right"
+            VerticalAlignment="Center"
             ManipulationDelta="CenterRightGrid_OnManipulationDelta"
             ManipulationMode="TranslateX, TranslateY"
-            VerticalAlignment="Center"
-            Width="65"
             >
             <Ellipse
+                Width="30"
+                Height="30"
+                Margin="0,0,35,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
                 d:LayoutRounding="Auto"
                 Fill="LightSkyBlue"
-                Height="30"
-                HorizontalAlignment="Right"
-                Margin="0,0,35,0"
                 RenderTransformOrigin="0.5,0.5"
                 Stretch="Fill"
                 Stroke="Transparent"
                 UseLayoutRounding="False"
-                VerticalAlignment="Center"
-                Width="30"
                 >
                 <Ellipse.RenderTransform>
                     <CompositeTransform
@@ -472,5 +478,7 @@
                 </userControls:RotationArrowsShape.RenderTransform>
             </userControls:RotationArrowsShape>
         </Grid>
+
+
     </Grid>
 </UserControl>

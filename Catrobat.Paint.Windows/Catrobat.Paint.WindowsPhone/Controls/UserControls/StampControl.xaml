@@ -14,7 +14,7 @@
     <Grid>
         <userControls:RectangleShapeBaseControl
             x:Name="RectangleShapeBaseControl"
-            />
-    </Grid>
+                />
+        </Grid>
 
 </UserControl>

@@ -166,7 +166,8 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
 
         private void TopLeftGrid_OnManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
         {
-            setCenterxAndCenteryCoordinates((GridMainSelection.Width / 2.0) * -1, (GridMainSelection.Height / 2.0) * -1);
+            setCenterxAndCenteryCoordinates((GridMainSelection.Width / 2.0 + GetXAndYValueFromLastTranslateTransform().X) * -1,
+                (GridMainSelection.Height / 2.0 + GetXAndYValueFromLastTranslateTransform().Y) * -1);
             if (m_corners_value != 0)
             {
                 TodoNeuerName(m_center_x, m_center_y, new Point(1, 1));
@@ -181,7 +182,8 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
 
         private void TopRightGrid_OnManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
         {
-            setCenterxAndCenteryCoordinates(GridMainSelection.Width / 2.0, (GridMainSelection.Height / 2.0) * -1);
+            setCenterxAndCenteryCoordinates(GridMainSelection.Width / 2.0 + GetXAndYValueFromLastTranslateTransform().X,
+                (GridMainSelection.Height / 2.0 + GetXAndYValueFromLastTranslateTransform().Y) * -1);
             if (m_corners_value != 1)
             {
                 TodoNeuerName(m_center_x, m_center_y, new Point(0, 1));
@@ -196,7 +198,8 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
 
         private void CenterRightGrid_OnManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
         {
-            setCenterxAndCenteryCoordinates(GridMainSelection.Width / 2.0, GridMainSelection.Height / 2.0);
+            setCenterxAndCenteryCoordinates(GridMainSelection.Width / 2.0 + GetXAndYValueFromLastTranslateTransform().X,
+                GridMainSelection.Height / 2.0 + GetXAndYValueFromLastTranslateTransform().Y);
             if (m_corners_value != 2)
             {
                 TodoNeuerName(m_center_x, m_center_y, new Point(0, 0));
@@ -207,7 +210,8 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
 
         private void BottomRightGrid_OnManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
         {
-            setCenterxAndCenteryCoordinates(GridMainSelection.Width / 2.0, GridMainSelection.Height / 2.0);
+            setCenterxAndCenteryCoordinates(GridMainSelection.Width / 2.0 + GetXAndYValueFromLastTranslateTransform().X,
+                GridMainSelection.Height / 2.0 + GetXAndYValueFromLastTranslateTransform().Y);
             if (m_corners_value != 2)
             {
                 TodoNeuerName(m_center_x, m_center_y, new Point(0, 0));
@@ -236,7 +240,8 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
 
         private void BottomLeftGrid_OnManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
         {
-            setCenterxAndCenteryCoordinates((GridMainSelection.Width / 2.0) * -1, GridMainSelection.Height / 2.0);
+            setCenterxAndCenteryCoordinates((GridMainSelection.Width / 2.0 + GetXAndYValueFromLastTranslateTransform().X) * -1,
+                GridMainSelection.Height / 2.0 + GetXAndYValueFromLastTranslateTransform().Y);
             if (m_corners_value != 3)
             {
                 TodoNeuerName(m_center_x, m_center_y, new Point(1, 0));
@@ -248,7 +253,8 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
 
         private void CenterLeftGrid_OnManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
         {
-            setCenterxAndCenteryCoordinates((GridMainSelection.Width / 2.0) * -1, (GridMainSelection.Height / 2.0) * -1);
+            setCenterxAndCenteryCoordinates((GridMainSelection.Width / 2.0 + GetXAndYValueFromLastTranslateTransform().X) * -1,
+                (GridMainSelection.Height / 2.0 + GetXAndYValueFromLastTranslateTransform().Y) * -1);
             if (m_corners_value != 0)
             {
                 TodoNeuerName(m_center_x, m_center_y, new Point(1, 1));
@@ -372,26 +378,28 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
                 deltaXCorrected = m_MinWidthOfControl - AreaToDrawGrid.Width;
             }
 
-            SetWidthOfControl(newWidthOfControl);
-
-            double deltaXLeft = 0;
-            double deltaXRight = 0;
-            if (orientation == Orientation.Left)
+            if (SetWidthOfControl(newWidthOfControl) == 0)
             {
-                deltaXLeft = deltaXCorrected;
-                //deltaXRight = deltaXCorrected * -1;
-            }
-            else if (orientation == Orientation.Right)
-            {
-                deltaXRight = deltaXCorrected;
-            }
 
-            setGridMainSelectionMargin(GridMainSelection.Margin.Left - deltaXLeft,
-                                            GridMainSelection.Margin.Top,
-                                            GridMainSelection.Margin.Right - deltaXRight,
-                                            GridMainSelection.Margin.Bottom);
+                double deltaXLeft = 0;
+                double deltaXRight = 0;
+                if (orientation == Orientation.Left)
+                {
+                    deltaXLeft = deltaXCorrected;
+                    //deltaXRight = deltaXCorrected * -1;
+                }
+                else if (orientation == Orientation.Right)
+                {
+                    deltaXRight = deltaXCorrected;
+                }
 
-            PocketPaintApplication.GetInstance().BarRecEllShape.setBtnWidthValue = AreaToDraw.Width;
+                setGridMainSelectionMargin(GridMainSelection.Margin.Left - deltaXLeft,
+                                                GridMainSelection.Margin.Top,
+                                                GridMainSelection.Margin.Right - deltaXRight,
+                                                GridMainSelection.Margin.Bottom);
+
+                PocketPaintApplication.GetInstance().BarRecEllShape.setBtnWidthValue = AreaToDraw.Width;
+            }
         }
 
         private void resizeHeight(double deltaX, double deltaY, Orientation orientation)
@@ -422,25 +430,27 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
                 deltaYCorrected = m_MinHeightOfControl - AreaToDrawGrid.Height;
             }
 
-            SetHeightOfControl(newHeightOfControl);
-
-            double deltaYTop = 0;
-            double deltaYBottom = 0;
-            if (orientation == Orientation.Top)
+            if (SetHeightOfControl(newHeightOfControl) == 0)
             {
-                deltaYTop = deltaYCorrected;
-            }
-            else if (orientation == Orientation.Bottom)
-            {
-                deltaYBottom = deltaYCorrected;
-            }
+
+                double deltaYTop = 0;
+                double deltaYBottom = 0;
+                if (orientation == Orientation.Top)
+                {
+                    deltaYTop = deltaYCorrected;
+                }
+                else if (orientation == Orientation.Bottom)
+                {
+                    deltaYBottom = deltaYCorrected;
+                }
 
 
-            setGridMainSelectionMargin(GridMainSelection.Margin.Left,
-                                            GridMainSelection.Margin.Top - deltaYTop,
-                                            GridMainSelection.Margin.Right,
-                                            GridMainSelection.Margin.Bottom - deltaYBottom);
-            PocketPaintApplication.GetInstance().BarRecEllShape.setBtnHeightValue = AreaToDraw.Height;
+                setGridMainSelectionMargin(GridMainSelection.Margin.Left,
+                                                GridMainSelection.Margin.Top - deltaYTop,
+                                                GridMainSelection.Margin.Right,
+                                                GridMainSelection.Margin.Bottom - deltaYBottom);
+                PocketPaintApplication.GetInstance().BarRecEllShape.setBtnHeightValue = AreaToDraw.Height;
+            }
         }
 
         public Point GetCenterCoordinateOfGridMain()
@@ -566,16 +576,18 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
             }).FirstOrDefault();
         }
 
-        public void SetHeightOfControl(double newHeight)
+        public int SetHeightOfControl(double newHeight)
         {
             //TODO 1 is maybe too small?
-            if (newHeight >= 1)
+            if (newHeight > 150)
             {
                 double offset = newHeight - GridMainSelection.Height;
                 GridMainSelection.Height = newHeight;
                 MovementRectangle.Height = MovementRectangle.Height + offset;
                 AreaToDrawGrid.Height = AreaToDraw.Height + offset;
+                return 0;
             }
+            return -1;
         }
 
         public void SetHeightOfRectangleToDraw(double newHeightRectangleToDraw)
@@ -602,17 +614,19 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
             }
         }
 
-        public void SetWidthOfControl(double newWidthOfControl)
+        public int SetWidthOfControl(double newWidthOfControl)
         {
             //TODO 1 is maybe too small?
-            if (newWidthOfControl >= 1)
+            if (newWidthOfControl > 150)
             {
                 double offset = newWidthOfControl - GridMainSelection.Width;
                 GridMainSelection.Width = newWidthOfControl;
                 MovementRectangle.Width = MovementRectangle.Width + offset;
                 AreaToDrawGrid.Width = AreaToDraw.Width + offset;
                 PocketPaintApplication.GetInstance().StampControl.setWidthOfControl(newWidthOfControl);
+                return 0;
             }
+            return -1;
         }
 
         public void SetWidthOfRectangleToDraw(double newWidth)
