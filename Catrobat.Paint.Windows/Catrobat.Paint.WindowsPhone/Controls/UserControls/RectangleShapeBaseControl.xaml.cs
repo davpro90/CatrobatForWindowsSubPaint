@@ -579,7 +579,7 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
         public int SetHeightOfControl(double newHeight)
         {
             //TODO 1 is maybe too small?
-            if (newHeight > 150)
+            if (newHeight > m_MinHeightOfControl)
             {
                 double offset = newHeight - GridMainSelection.Height;
                 GridMainSelection.Height = newHeight;
@@ -617,7 +617,7 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
         public int SetWidthOfControl(double newWidthOfControl)
         {
             //TODO 1 is maybe too small?
-            if (newWidthOfControl > 150)
+            if (newWidthOfControl > m_MinHeightOfControl)
             {
                 double offset = newWidthOfControl - GridMainSelection.Width;
                 GridMainSelection.Width = newWidthOfControl;
