@@ -85,7 +85,10 @@
         <userControls:CropControl x:Name="ctrlCropControl" Visibility="Collapsed"></userControls:CropControl>
 
         <!-- Stamp-Control -->
-        <userControls:StampControl x:Name="ctrlStampControl" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Collapsed"></userControls:StampControl>
+        <userControls:StampControl x:Name="ctrlStampControl"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Visibility="Collapsed"></userControls:StampControl>
         <userControls:InfoBasicBoxControl x:Name="InfoBasicBoxControl" Visibility="Collapsed"></userControls:InfoBasicBoxControl>
         <userControls:InfoBoxActionControl x:Name="InfoBoxActionControl" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"></userControls:InfoBoxActionControl>
         <userControls:InfoBoxControl x:Name="InfoBoxControl" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"></userControls:InfoBoxControl>

@@ -87,6 +87,8 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
             double currentGridMainHeight = GridMainSelection.Height;
             double currentGridMainWidth = GridMainSelection.Width;
 
+            TranslateTransform translateTransform = GetLastTranslateTransformation();
+
             // HACK: Is needed to resize a rotated objects
             double centerX = m_center_x;
             double centerY = m_center_y;
@@ -119,6 +121,7 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
                 CenterX = m_center_x,
                 CenterY = m_center_y
             };
+            addTransformation(translateTransform);
             addTransformation(ct);
             ResetAppBarButtonRectangleSelectionControl(true);
             IsModifiedRectangleForMovement = true;
@@ -249,13 +252,25 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
 
         private void rectEllipseForMovement_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
         {
+            
             var xVal = e.Delta.Translation.X;
             var yVal = e.Delta.Translation.Y;
+            var translateTransform = new TranslateTransform();
+            var lastTranslateTransform = GetLastTranslateTransformation();
+            if (lastTranslateTransform != null)
+            {
+                xVal += lastTranslateTransform.X;
+                yVal += lastTranslateTransform.Y;
+            }
+            //GridMainSelection.Margin = new Thickness(GridMainSelection.Margin.Left + xVal,
+            //                                         GridMainSelection.Margin.Top + yVal,
+            //                                         GridMainSelection.Margin.Right - xVal,
+            //                                         GridMainSelection.Margin.Bottom - yVal);
 
-            GridMainSelection.Margin = new Thickness(GridMainSelection.Margin.Left + xVal,
-                                                     GridMainSelection.Margin.Top + yVal,
-                                                     GridMainSelection.Margin.Right - xVal,
-                                                     GridMainSelection.Margin.Bottom - yVal);
+            translateTransform.X = xVal;
+            translateTransform.Y = yVal;
+            addTransformation(translateTransform);
+
             ResetAppBarButtonRectangleSelectionControl(true);
             IsModifiedRectangleForMovement = true;
         }
@@ -492,15 +507,18 @@ namespace Catrobat.Paint.WindowsPhone.Controls.UserControls
 
         public void addTransformation(Transform currentTransform)
         {
-            for (int i = 0; i < m_TransformGridMain.Children.Count; i++)
-            {
-                if (m_TransformGridMain.Children[i].GetType() == currentTransform.GetType())
+            if (currentTransform != null)
+            { 
+                for (int i = 0; i < m_TransformGridMain.Children.Count; i++)
                 {
-                    m_TransformGridMain.Children.RemoveAt(i);
+                    if (m_TransformGridMain.Children[i].GetType() == currentTransform.GetType())
+                    {
+                        m_TransformGridMain.Children.RemoveAt(i);
+                    }
                 }
-            }
 
-            m_TransformGridMain.Children.Add(currentTransform);
+                m_TransformGridMain.Children.Add(currentTransform);
+            }
         }
 
         public void ResetAppBarButtonRectangleSelectionControl(bool isActivated)
